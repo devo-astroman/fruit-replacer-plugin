@@ -1,0 +1,10 @@
+{
+  "name": "fruit-selector-plugin",
+  "tree": {
+    "$className": "DataModel",
+    "PluginScripts": {
+      "$className": "Folder",
+      "$path": "src/plugin-scripts"
+    }
+  }
+}

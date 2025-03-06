@@ -1,0 +1,1 @@
+--Here should be the code that creates a plugin button in the toolbar
