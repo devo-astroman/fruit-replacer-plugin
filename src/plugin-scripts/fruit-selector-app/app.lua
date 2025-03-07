@@ -29,10 +29,9 @@ function app.init(plugin, pluginButton)
         end
     end)
 
-    local greetTextBuilder = GreetText.builder(plugin);    
-    local greeText = greetTextBuilder(scope, {
+    local greeText = GreetText(scope, {
         greetMsg = "Hello there!"
-    })
+    }) 
 
     greeText.Parent = widget 
 
