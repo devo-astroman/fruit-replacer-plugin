@@ -4,9 +4,7 @@ local OnyxUI = require(script.Parent.Parent.Parent.packages.OnyxUI)
 return function(Scope: Fusion.Scope<any>, Props)
 	local Util = OnyxUI.Util
 	local InnerScope = Fusion.innerScope
-	local Themer = OnyxUI.Themer
 	local Scope = InnerScope(Scope, Fusion, OnyxUI.Util, OnyxUI.Components)
-	local Theme = Themer.Theme:now()
 
     local frameUp = Scope:Frame {
 		BackgroundTransparency = 0,
@@ -32,36 +30,28 @@ return function(Scope: Fusion.Scope<any>, Props)
     local frameRight =  Scope:Frame {
 		BackgroundTransparency = 0,
         Size = UDim2.new(.5, 0, 1, 0),
-        Position = UDim2.new(0.5, 0, 1, 0),
+        Position = UDim2.new(0.5, 0, 0, 0),
         BackgroundColor3 = Util.Colors.Amber["300"]
 	}
 
- 
-
-    local myText2 = Scope:Text {		
-		Padding = Scope:Computed(function(Use)
-			return UDim.new(0, Use(Theme.Spacing["2"]))
-		end),
-		Text = "B",
-		TextColor3 = Util.Colors.Green["700"],
-	}
-
-    local parentFrame = Scope:Card {
+    local parentFrame = Scope:Frame {
 		BackgroundTransparency = 0,
         Size = UDim2.new(1, 0, 1, 0),
         Position = UDim2.new(0, 0, 0, 0),
         BackgroundColor3 = Util.Colors.Blue["700"]
 	}
 
+    if Props.Show then
+        frameLeft.Parent = frameUp
+        frameRight.Parent = frameUp
 
-    frameLeft.Parent = frameUp
-    frameRight.Parent = frameUp
+        Props.LeftComponent.Parent = frameLeft
+        Props.RightComponent.Parent = frameRight
+        Props.BottomComponent.Parent = frameDown
 
-    --[[ myText.Parent = frameUp
-    myText2.Parent = frameDown ]]
-
-    frameUp.Parent = parentFrame
-    frameDown.Parent = parentFrame
+        frameUp.Parent = parentFrame
+        frameDown.Parent = parentFrame
+    end
 
 	return parentFrame
 end

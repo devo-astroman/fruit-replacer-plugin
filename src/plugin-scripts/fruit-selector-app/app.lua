@@ -8,9 +8,9 @@ local scoped = Fusion.scoped
 local peek = Fusion.peek
 
 local scope = scoped(Fusion)
+
 local nTimesOpen = Fusion.Value(scope, 0)
 local nTimesOpenObs = scope:Observer(nTimesOpen)
-
 
 local widgetEnabled = false
 local widget = nil
@@ -30,11 +30,21 @@ function app.init(plugin, pluginButton)
         end
     end)
 
-    local mainSection = MainSection(scope,{})
+    local greetText = GreetText(scope, {
+        greetMsg = "Hello there!"
+    }) 
+
+    local greetText2 = GreetText(scope, {
+        greetMsg = "Hello my World!"
+    }) 
+
+    local greetText3 = GreetText(scope, {
+        greetMsg = "Very cool!"
+    })
+
+    local mainSection = MainSection(scope, { LeftComponent = greetText,  RightComponent = greetText2, BottomComponent = greetText3, Show = true})
     print("mainSection ", mainSection)
     mainSection.Parent = widget
-
-    
 
 
 
