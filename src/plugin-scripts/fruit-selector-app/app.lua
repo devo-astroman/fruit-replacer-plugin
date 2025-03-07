@@ -1,6 +1,7 @@
 local Fusion = require(script.Parent.Parent.packages.Fusion)
 local BaseWidget = require(script.Parent.components.BaseWidget)
 
+local MainSection = require(script.Parent.sections.MainSection)
 local GreetText = require(script.Parent.components.GreetText)
 
 local scoped = Fusion.scoped
@@ -20,7 +21,7 @@ function app.init(plugin, pluginButton)
     pluginButton.ClickableWhenViewportHidden = true
     pluginButton.Click:Connect(app.run)
     widgetEnabled = false
-    widget = BaseWidget.getBaseWidget(plugin,"fruitSelectorGui","Fruit Selector", 200, 100, 200, 100)
+    widget = BaseWidget.getBaseWidget(plugin,"fruitSelectorGui","Fruit Selector", 600, 400, 200, 100)
     widget.Enabled = widgetEnabled;
 
     widget:GetPropertyChangedSignal("Enabled"):Connect(function()
@@ -29,16 +30,17 @@ function app.init(plugin, pluginButton)
         end
     end)
 
-    local greeText = GreetText(scope, {
-        greetMsg = "Hello there!"
-    }) 
+    local mainSection = MainSection(scope,{})
+    print("mainSection ", mainSection)
+    mainSection.Parent = widget
 
-    greeText.Parent = widget 
+    
+
 
 
     local disconnect = nTimesOpenObs:onChange(function()
         print("The new value is: ", peek(nTimesOpen))
-        textLabel.Text = "Hello World! " .. peek(nTimesOpen)
+        --[[ textLabel.Text = "Hello World! " .. peek(nTimesOpen) ]]
     end)
 
 end
