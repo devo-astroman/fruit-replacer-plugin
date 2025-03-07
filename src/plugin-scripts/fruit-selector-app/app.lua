@@ -1,6 +1,8 @@
 local Fusion = require(script.Parent.Parent.packages.Fusion)
 local BaseWidget = require(script.Parent.components.BaseWidget)
 
+local GreetText = require(script.Parent.components.GreetText)
+
 local scoped = Fusion.scoped
 local peek = Fusion.peek
 
@@ -27,15 +29,13 @@ function app.init(plugin, pluginButton)
         end
     end)
 
-    textLabel = Instance.new("TextLabel")
-    textLabel.Size = UDim2.new(0, 200, 0, 50)
-    textLabel.Position = UDim2.new(0.5, -100, 0.5, -25)
-    textLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    textLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
-    textLabel.Font = Enum.Font.SourceSans
-    textLabel.TextSize = 20
-   
-    textLabel.Parent = widget
+    local greetTextBuilder = GreetText.builder(plugin);    
+    local greeText = greetTextBuilder(scope, {
+        greetMsg = "Hello there!"
+    })
+
+    greeText.Parent = widget 
+
 
     local disconnect = nTimesOpenObs:onChange(function()
         print("The new value is: ", peek(nTimesOpen))
