@@ -1,8 +1,11 @@
 local Fusion = require(script.Parent.Parent.packages.Fusion)
 local BaseWidget = require(script.Parent.components.BaseWidget)
 
-local MainSection = require(script.Parent.sections.MainSection)
-local GreetText = require(script.Parent.components.GreetText)
+local Router = require(script.Parent.router)
+
+local SelectorFruit = require(script.Parent.sections.SelectorFruit)
+local EditorFruit = require(script.Parent.sections.EditorFruit)
+local CreatorFruit = require(script.Parent.sections.CreatorFruit)
 
 local scoped = Fusion.scoped
 local peek = Fusion.peek
@@ -14,7 +17,6 @@ local nTimesOpenObs = scope:Observer(nTimesOpen)
 
 local widgetEnabled = false
 local widget = nil
-local textLabel = nil
 
 local app = {}
 function app.init(plugin, pluginButton)
@@ -29,46 +31,30 @@ function app.init(plugin, pluginButton)
             widgetEnabled = false
         end
     end)
-
-
---[[ 
-
-        local store = 
-
-        local otherProps = {
-            plugin,
-            store,
-            services,
-            ...
-        }
-
-        local sectionRouter = CreateRouter(widget, "MainSection", {
-            MainSection,
-            AboutSection,
-        }, otherProps)
-
-        
-
-]]
-
-
-    --[[ local greetText = GreetText(scope, {
-        greetMsg = "Hello there!"
-    }) 
-
-    local greetText2 = GreetText(scope, {
-        greetMsg = "Hello my World!"
-    }) 
-
-    local greetText3 = GreetText(scope, {
-        greetMsg = "Very cool!"
+    
+    local selectorFruitSection = SelectorFruit(scope, {
+        store = "In the future here the store ref",
+        routerRef = Router
     })
 
-    local mainSection = MainSection(scope, { LeftComponent = greetText,  RightComponent = greetText2, BottomComponent = greetText3, Show = true})
-    print("mainSection ", mainSection)
-    mainSection.Parent = widget ]]
+    local editorFruitSection = EditorFruit(scope, {
+        store = "In the future here the store ref",
+        routerRef = Router
+    })
 
+    local creatorFruitSection = CreatorFruit(scope, {
+        store = "In the future here the store ref",
+        routerRef = Router
+    })
 
+    local sections = {
+        selector = selectorFruitSection,
+        editor = editorFruitSection,
+        creator = creatorFruitSection,
+    }
+
+    Router.create(widget, "selector", sections)
+    Router.init()
 
     local disconnect = nTimesOpenObs:onChange(function()
         print("The new value is: ", peek(nTimesOpen))
