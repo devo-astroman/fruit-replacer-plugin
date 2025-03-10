@@ -8,11 +8,13 @@ return function(Scope: Fusion.Scope<any>, Props)
 	local Scope = InnerScope(Scope, Fusion, OnyxUI.Util, OnyxUI.Components)
 	local Theme = Themer.Theme:now()
 
-	return Scope:Button {		
-		Padding = Scope:Computed(function(Use)
-			return UDim.new(0, Use(Theme.Spacing["2"]))
-		end),
-		Text = "Test",
-		OnActivated = Props.OnActivated,
-	}
+		return Scope:Button {		
+			Padding = Scope:Computed(function(Use)
+				return UDim.new(0, Use(Theme.Spacing["2"]))
+			end),
+			Size = Props.Size,
+			Position = Props.Position,
+			Content = {Props.Text},
+			OnActivated = Props.OnActivated,
+		}
 end

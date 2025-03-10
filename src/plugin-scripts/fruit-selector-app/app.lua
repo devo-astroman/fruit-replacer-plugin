@@ -15,6 +15,10 @@ local scope = scoped(Fusion)
 local nTimesOpen = Fusion.Value(scope, 0)
 local nTimesOpenObs = scope:Observer(nTimesOpen)
 
+local fruitSelected = Fusion.Value(scope, "none")
+local fruitSelectedObs = scope:Observer(fruitSelected)
+
+
 local widgetEnabled = false
 local widget = nil
 
@@ -31,19 +35,24 @@ function app.init(plugin, pluginButton)
             widgetEnabled = false
         end
     end)
+
+    local store = {
+        fruitSelected = fruitSelected,
+        fruitSelectedObs = fruitSelectedObs
+    }
     
     local selectorFruitSection = SelectorFruit(scope, {
-        store = "In the future here the store ref",
+        storeRef = store,
         routerRef = Router
     })
 
     local editorFruitSection = EditorFruit(scope, {
-        store = "In the future here the store ref",
+        storeRef = store,
         routerRef = Router
     })
 
     local creatorFruitSection = CreatorFruit(scope, {
-        store = "In the future here the store ref",
+        storeRef = store,
         routerRef = Router
     })
 
