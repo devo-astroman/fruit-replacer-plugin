@@ -30,7 +30,29 @@ function app.init(plugin, pluginButton)
         end
     end)
 
-    local greetText = GreetText(scope, {
+
+--[[ 
+
+        local store = 
+
+        local otherProps = {
+            plugin,
+            store,
+            services,
+            ...
+        }
+
+        local sectionRouter = CreateRouter(widget, "MainSection", {
+            MainSection,
+            AboutSection,
+        }, otherProps)
+
+        
+
+]]
+
+
+    --[[ local greetText = GreetText(scope, {
         greetMsg = "Hello there!"
     }) 
 
@@ -44,7 +66,7 @@ function app.init(plugin, pluginButton)
 
     local mainSection = MainSection(scope, { LeftComponent = greetText,  RightComponent = greetText2, BottomComponent = greetText3, Show = true})
     print("mainSection ", mainSection)
-    mainSection.Parent = widget
+    mainSection.Parent = widget ]]
 
 
 

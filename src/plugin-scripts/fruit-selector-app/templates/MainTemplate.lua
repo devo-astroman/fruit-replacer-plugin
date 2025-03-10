@@ -1,33 +1,6 @@
 local Fusion = require(script.Parent.Parent.Parent.packages.Fusion)
 local OnyxUI = require(script.Parent.Parent.Parent.packages.OnyxUI)
 
-
---[[ 
-
-local greetText = GreetText(scope, {
-        greetMsg = "Hello there!"
-    }) 
-
-    local greetText2 = GreetText(scope, {
-        greetMsg = "Go to about",
-        onClick = function() 
-            sectionRouter.gotoSection("AboutSection")
-        end
-    }) 
-
-    local greetText3 = GreetText(scope, {
-        greetMsg = "Very cool!"
-    })
-
-    local mainSection = MainTemplate(scope, { LeftComponent = greetText,  RightComponent = greetText2, BottomComponent = greetText3, Show = true})
-    print("mainSection ", mainSection)
-
-    
-
-]]
-
-
---[[ 
 return function(Scope: Fusion.Scope<any>, Props)
 	local Util = OnyxUI.Util
 	local InnerScope = Fusion.innerScope
@@ -81,4 +54,4 @@ return function(Scope: Fusion.Scope<any>, Props)
     end
 
 	return parentFrame
-end ]]
+end

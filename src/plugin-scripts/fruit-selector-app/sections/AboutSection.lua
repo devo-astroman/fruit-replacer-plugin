@@ -9,9 +9,9 @@ local greetText = GreetText(scope, {
     }) 
 
     local greetText2 = GreetText(scope, {
-        greetMsg = "Go to about",
+        greetMsg = "go To Main",
         onClick = function() 
-            sectionRouter.gotoSection("AboutSection")
+            sectionRouter.gotoSection("MainSection")
         end
     }) 
 
