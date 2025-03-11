@@ -18,6 +18,7 @@ local nTimesOpenObs = scope:Observer(nTimesOpen)
 local fruitSelected = Fusion.Value(scope, "none")
 local fruitSelectedObs = scope:Observer(fruitSelected)
 
+
 local elementsSelected = Fusion.Value(scope, {})
 local elementsSelectedObs = scope:Observer(elementsSelected)
 

@@ -5,6 +5,8 @@ local GreetText = require(script.Parent.Parent.components.GreetText)
 local ButtonGo = require(script.Parent.Parent.components.ButtonGo)
 local FruitButtons = require(script.Parent.Parent.components.FruitButtons)
 local FruitImage = require(script.Parent.Parent.components.FruitImage)
+local LoadAssetFn = require(script.Parent.Parent.utils.AssetLoader)
+local Workspace = game:GetService("Workspace")
 
 return function(Scope: Fusion.Scope<any>, Props)    
 	local Util = OnyxUI.Util
@@ -12,7 +14,22 @@ return function(Scope: Fusion.Scope<any>, Props)
 	local Scope = InnerScope(Scope, Fusion, OnyxUI.Util, OnyxUI.Components)
     local store = Props.storeRef
     local fruitSelected = store.fruitSelected
+    local fruitSelectedObs = store.fruitSelectedObs
     local router = Props.routerRef
+
+
+    
+    fruitSelectedObs:onChange(function()
+        --[[ print("The new value is: ", peek(nTimesOpen)) ]]
+        --[[ textLabel.Text = "Hello World! " .. peek(nTimesOpen) ]]
+        print("trying to load ")
+        LoadAssetFn("77269982770510",  function(object)
+            print("trying to load ", object)
+            object.Parent = Workspace
+        end)
+
+
+    end)
 
 
     local title = GreetText(Scope, {

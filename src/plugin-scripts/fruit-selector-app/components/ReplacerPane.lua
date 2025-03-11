@@ -14,9 +14,9 @@ return function(Scope: Fusion.Scope<any>, Props)
      OnActivated = Props.OnActivatedSelect
     })
 
-	local button2 = ButtonApp(Scope, { Text="Pear" ,
+	local button2 = ButtonApp(Scope, { Text="Replace" ,
      Position = UDim2.new(0, 0, .33, 0),
-     OnActivated = Props.OnActivatedPear
+     OnActivated = Props.OnActivatedReplace
     })
 
 	local button3 = ButtonApp(Scope, { Text="Banana" ,
@@ -32,8 +32,8 @@ return function(Scope: Fusion.Scope<any>, Props)
 	}
 
     button1.Parent = frameParent
-    --[[ button2.Parent = frameParent
-    button3.Parent = frameParent ]]
+    button2.Parent = frameParent
+   --[[  button3.Parent = frameParent ]]
 
 
 	return frameParent

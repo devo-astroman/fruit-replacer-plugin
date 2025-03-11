@@ -5,7 +5,10 @@ local GreetText = require(script.Parent.Parent.components.GreetText)
 local ButtonGo = require(script.Parent.Parent.components.ButtonGo)
 local ReplacerPane = require(script.Parent.Parent.components.ReplacerPane)
 local ReplacerInfo = require(script.Parent.Parent.components.ReplacerInfo)
+
 local Selection = game:GetService("Selection")
+local Workspace = game:GetService("Workspace")
+
 
 return function(Scope: Fusion.Scope<any>, Props)    
 	local Util = OnyxUI.Util
@@ -15,6 +18,7 @@ return function(Scope: Fusion.Scope<any>, Props)
     local fruitSelected = store.fruitSelected
     local elementsSelected = store.elementsSelected
     local router = Props.routerRef
+    local peek = Fusion.peek
 
 
     local title = GreetText(Scope, {
@@ -22,8 +26,7 @@ return function(Scope: Fusion.Scope<any>, Props)
     })
 
     local replacerPane = ReplacerPane (Scope, {
-        OnActivatedSelect = function()
-            
+        OnActivatedSelect = function()            
             local elems = {}
             for _, object in pairs(Selection:Get()) do
                 if object:IsA("BasePart") then
@@ -32,6 +35,17 @@ return function(Scope: Fusion.Scope<any>, Props)
                 end
             end
             elementsSelected:set(elems)
+        end,
+        OnActivatedReplace = function()   
+    
+            local elems = {}
+            for _, object in pairs(peek(elementsSelected)) do
+
+                local clone = e.Clone()
+                clone.Parent = Workspace
+
+                print(object.Name)
+            end            
         end
     })
 
