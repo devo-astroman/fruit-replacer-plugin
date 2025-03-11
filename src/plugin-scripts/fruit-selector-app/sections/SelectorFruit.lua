@@ -38,7 +38,7 @@ return function(Scope: Fusion.Scope<any>, Props)
 
     local fruitImage = FruitImage(Scope, {
         fruitTitle = Scope:Computed(function(use, scope)
-            return "Fruit_ : " .. use(fruitSelected)
+            return "Fruit: " .. use(fruitSelected)
         end),
         fruitImage = Scope:Computed(function(use, scope)
             local assetId = "none"
@@ -53,9 +53,9 @@ return function(Scope: Fusion.Scope<any>, Props)
         end)
     })
 
-    local buttonNext = ButtonGo(Scope, { Text="Next _" ,
+    local buttonNext = ButtonGo(Scope, { Text="Next" ,
     Size = UDim2.new(0.25, 0, .25, 0),
-     Position = UDim2.new(0, 0, 0, 0),
+     Position = UDim2.new(0.375, 0, 0, 0),
      OnActivated = function()
         print("Clicked")
     end})

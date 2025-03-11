@@ -6,52 +6,47 @@ return function(Scope: Fusion.Scope<any>, Props)
 	local InnerScope = Fusion.innerScope
 	local Scope = InnerScope(Scope, Fusion, OnyxUI.Util, OnyxUI.Components)
 
-    --[[ 
-    header: 10%
-    body: 80%
-    footer: 10%
-     ]]
-
     local header = Scope:Frame {
-		BackgroundTransparency = 0,
+		BackgroundTransparency = 1,
         Size = UDim2.new(1, 0, .1, 0),
         Position = UDim2.new(0, 0, 0, 0),
-        BackgroundColor3 = Util.Colors.Yellow["100"]
+        BackgroundColor3 = Util.Colors.Blue["100"],
+        PaddingTop = UDim.new(0.0682, 0)        
 	}
 
     local body = Scope:Frame {
-		BackgroundTransparency = 0,
-        Size = UDim2.new(1, 0, .8, 0),
+		BackgroundTransparency = 1,
+        Size = UDim2.new(1, 0, .7, 0),
         Position = UDim2.new(0, 0, .1, 0),
         BackgroundColor3 = Util.Colors.Indigo["100"],
 	}
     
     local footer =  Scope:Frame {
-		BackgroundTransparency = 0,
-        Size = UDim2.new(1, 0, .1, 0),
-        Position = UDim2.new(0, 0, .9, 0),
+		BackgroundTransparency = 1,
+        Size = UDim2.new(1, 0, .2, 0),
+        Position = UDim2.new(0, 0, .8, 0),
         BackgroundColor3 = Util.Colors.Emerald["300"]
 	}
 
     local leftSide = Scope:Frame {
-        BackgroundTransparency = 0,
+        BackgroundTransparency = 1,
         Size = UDim2.new(.5, 0, 1, 0),
         Position = UDim2.new(0, 0, 0, 0),
-        BackgroundColor3 = Util.Colors.Indigo["100"]
+        BackgroundColor3 = Util.Colors.Blue["700"]
     }
 
     local rightSide =  Scope:Frame {
-        BackgroundTransparency = 0,
+        BackgroundTransparency = 1,
         Size = UDim2.new(.5, 0, 1, 0),
         Position = UDim2.new(0.5, 0, 0, 0),
         BackgroundColor3 = Util.Colors.Amber["300"]
     }
 
     local parentFrame = Scope:Frame {
-		BackgroundTransparency = 0,
+		BackgroundTransparency = 0,        
         Size = UDim2.new(1, 0, 1, 0),
         Position = UDim2.new(0, 0, 0, 0),
-        BackgroundColor3 = Util.Colors.Blue["700"]
+        BackgroundColor3 = Util.Colors.White
 	}
 
     leftSide.Parent = body
@@ -60,7 +55,6 @@ return function(Scope: Fusion.Scope<any>, Props)
     header.Parent = parentFrame
     body.Parent = parentFrame
     footer.Parent = parentFrame
-
 
     Props.Title.Parent = header
     Props.Left.Parent = leftSide

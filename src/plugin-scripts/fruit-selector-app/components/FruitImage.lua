@@ -10,9 +10,6 @@ return function(Scope: Fusion.Scope<any>, Props)
 
 
     local titleText = Scope:Text {		
-		Padding = Scope:Computed(function(Use)
-			return UDim.new(0, Use(Theme.Spacing["2"]))
-		end),
 		Text = Props.fruitTitle,
 		TextColor3 = Util.Colors.Green["700"],
         Size = UDim2.new(1, 0, .3, 0),
@@ -22,14 +19,14 @@ return function(Scope: Fusion.Scope<any>, Props)
     local fruitImage = Scope:Image{
         Image = Props.fruitImage,
         Size = UDim2.new(.6, 0, .5, 0),
-        Position = UDim2.new(.2, 0, .4, 0),
+        Position = UDim2.new(.2, 0, .3, 0),
     }
 
     local frameParent = Scope:Frame {
-		BackgroundTransparency = 0,
-        Size = UDim2.new(1, 0, .3, 0),
-        Position = UDim2.new(0, 0, .2, 0),
-        BackgroundColor3 = Util.Colors.Yellow["100"]
+		BackgroundTransparency = 1,
+        Size = UDim2.new(1, 0, .8, 0),
+        Position = UDim2.new(0, 0, 0, 0),
+        BackgroundColor3 = Util.Colors.Green["100"]
 	}
 
     titleText.Parent = frameParent
