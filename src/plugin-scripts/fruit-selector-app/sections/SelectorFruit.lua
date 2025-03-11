@@ -58,6 +58,7 @@ return function(Scope: Fusion.Scope<any>, Props)
      Position = UDim2.new(0.375, 0, 0, 0),
      OnActivated = function()
         print("Clicked")
+        Props.goToEditor()
     end})
     
     local mainSection = StepTemplate(Scope, { Title = title,  Left = fruitButtons, Right = fruitImage, Footer = buttonNext})

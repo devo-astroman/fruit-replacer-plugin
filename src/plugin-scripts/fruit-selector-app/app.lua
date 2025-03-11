@@ -18,6 +18,9 @@ local nTimesOpenObs = scope:Observer(nTimesOpen)
 local fruitSelected = Fusion.Value(scope, "none")
 local fruitSelectedObs = scope:Observer(fruitSelected)
 
+local elementsSelected = Fusion.Value(scope, {})
+local elementsSelectedObs = scope:Observer(elementsSelected)
+
 
 local widgetEnabled = false
 local widget = nil
@@ -38,22 +41,42 @@ function app.init(plugin, pluginButton)
 
     local store = {
         fruitSelected = fruitSelected,
-        fruitSelectedObs = fruitSelectedObs
+        fruitSelectedObs = fruitSelectedObs,
+        elementsSelected = elementsSelected,
+        elementsSelectedObs = elementsSelectedObs,
     }
     
     local selectorFruitSection = SelectorFruit(scope, {
         storeRef = store,
-        routerRef = Router
+        routerRef = Router,
+        goToEditor = function()
+            Router.goToSection("editor")
+        end
     })
 
     local editorFruitSection = EditorFruit(scope, {
         storeRef = store,
-        routerRef = Router
+        routerRef = Router,
+        goToCreator = function()
+            Router.goToSection("creator")
+        end,
+        goToSelector = function()
+            Router.goToSection("selector")
+        end
     })
 
     local creatorFruitSection = CreatorFruit(scope, {
         storeRef = store,
-        routerRef = Router
+        routerRef = Router,
+        goToSelector = function()
+            Router.goToSection("selector")
+        end,
+        goToEditor = function()
+            Router.goToSection("editor")
+        end,
+        goToCreator = function()
+            Router.goToSection("creator")
+        end
     })
 
     local sections = {
