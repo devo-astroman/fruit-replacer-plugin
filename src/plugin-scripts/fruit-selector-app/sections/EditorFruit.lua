@@ -16,6 +16,7 @@ return function(Scope: Fusion.Scope<any>, Props)
 	local Scope = InnerScope(Scope, Fusion, OnyxUI.Util, OnyxUI.Components)
     local store = Props.storeRef
     local fruitSelected = store.fruitSelected
+    local modelLoaded = store.modelLoaded
     local elementsSelected = store.elementsSelected
     local router = Props.routerRef
     local peek = Fusion.peek
@@ -36,17 +37,28 @@ return function(Scope: Fusion.Scope<any>, Props)
             end
             elementsSelected:set(elems)
         end,
-        OnActivatedReplace = function()   
-    
-            local elems = {}
+        OnActivatedReplace = function()            
             for _, object in pairs(peek(elementsSelected)) do
-
-                local clone = e.Clone()
-                clone.Parent = Workspace
-
-                print(object.Name)
+                if object:IsA("BasePart") then -- Ensure object is a valid part
+                    local fruitModel = peek(modelLoaded):Clone() -- ✅ Fix cloning syntax
+                    
+                    -- ✅ Ensure the Model has a PrimaryPart
+                    if fruitModel:IsA("Model") and fruitModel.PrimaryPart then
+                        fruitModel:SetPrimaryPartCFrame(object.CFrame) -- ✅ Position model at part
+                    else
+                        warn("fruitModel does not have a PrimaryPart!")
+                    end
+        
+                    fruitModel.Parent = object.Parent -- ✅ Set the parent
+                    object.Transparency = 1
+        
+                    print("Placed:", object.Name)
+                else
+                    warn("Object is not a BasePart:", object)
+                end
             end            
         end
+        
     })
 
     
