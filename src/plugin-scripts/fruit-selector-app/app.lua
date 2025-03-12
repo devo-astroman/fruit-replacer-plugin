@@ -18,9 +18,11 @@ local nTimesOpenObs = scope:Observer(nTimesOpen)
 local fruitSelected = Fusion.Value(scope, "none")
 local fruitSelectedObs = scope:Observer(fruitSelected)
 
-
 local elementsSelected = Fusion.Value(scope, {})
 local elementsSelectedObs = scope:Observer(elementsSelected)
+
+local modelLoaded = Fusion.Value(scope, {})
+local modelLoadedObs = scope:Observer(modelLoaded)
 
 
 local widgetEnabled = false
@@ -45,6 +47,8 @@ function app.init(plugin, pluginButton)
         fruitSelectedObs = fruitSelectedObs,
         elementsSelected = elementsSelected,
         elementsSelectedObs = elementsSelectedObs,
+        modelLoaded = modelLoaded,
+        modelLoadedObs = modelLoadedObs,
     }
     
     local selectorFruitSection = SelectorFruit(scope, {
