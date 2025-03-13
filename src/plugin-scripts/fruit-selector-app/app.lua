@@ -6,6 +6,7 @@ local Router = require(script.Parent.router)
 local SelectorFruit = require(script.Parent.sections.SelectorFruit)
 local EditorFruit = require(script.Parent.sections.EditorFruit)
 local CreatorFruit = require(script.Parent.sections.CreatorFruit)
+local ReplacerSection = require(script.Parent.sections.ReplacerSection)
 
 local scoped = Fusion.scoped
 local peek = Fusion.peek
@@ -24,6 +25,12 @@ local elementsSelectedObs = scope:Observer(elementsSelected)
 local modelLoaded = Fusion.Value(scope, {})
 local modelLoadedObs = scope:Observer(modelLoaded)
 
+local toolSelected = Fusion.Value(scope, 0)
+local toolSelectedObs = scope:Observer(toolSelected)
+
+local appleSelected = Fusion.Value(scope, false)
+local pearSelected = Fusion.Value(scope, false)
+local bananaSelected = Fusion.Value(scope, false)
 
 local widgetEnabled = false
 local widget = nil
@@ -49,6 +56,13 @@ function app.init(plugin, pluginButton)
         elementsSelectedObs = elementsSelectedObs,
         modelLoaded = modelLoaded,
         modelLoadedObs = modelLoadedObs,
+        toolSelected = toolSelected,
+        toolSelectedObs = toolSelectedObs,
+        toolStateSelection = {
+            appleSelected = appleSelected,
+            pearSelected = pearSelected,
+            bananaSelected = bananaSelected,
+        }
     }
     
     local selectorFruitSection = SelectorFruit(scope, {
@@ -84,13 +98,34 @@ function app.init(plugin, pluginButton)
         end
     })
 
-    local sections = {
+   --[[  local sections = {
         selector = selectorFruitSection,
         editor = editorFruitSection,
         creator = creatorFruitSection,
+    } ]]
+
+    local replacerSection = ReplacerSection(scope, {
+        storeRef = store,
+        routerRef = Router,
+        goToSelector = function()
+            Router.goToSection("selector")
+        end,
+        goToEditor = function()
+            Router.goToSection("editor")
+        end,
+        goToCreator = function()
+            Router.goToSection("creator")
+        end
+    })
+
+
+    local sections = {
+        main = replacerSection
     }
 
-    Router.create(widget, "selector", sections)
+    
+
+    Router.create(widget, "main", sections)
     Router.init()
 
     local disconnect = nTimesOpenObs:onChange(function()
