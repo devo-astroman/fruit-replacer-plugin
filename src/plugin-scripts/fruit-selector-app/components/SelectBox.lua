@@ -14,17 +14,28 @@ return function(Scope: Fusion.Scope<any>, Props)
 
     local items = Props.Items or {} -- Default to empty table if nil
 
-    -- ✅ Parent frame with automatic height adjustment
+    local parentFrame = Scope:Frame {
+		BackgroundTransparency = 0,
+        Size = UDim2.new(1,0,0,120),
+        Position = UDim2.new(0,10,0,10),
+        BackgroundColor3 = Util.Colors.Blue["700"]
+	}
+
+    local scrollerParent = Scope:Scroller {
+		BackgroundTransparency = 0,
+        Size = UDim2.new(1,0,1,0),
+        Position = UDim2.new(0,0,0,0),
+        BackgroundColor3 = Util.Colors.Green["700"]
+	}
+
     local listFrame = Scope:Frame {
         BackgroundTransparency = 0,
         Size = UDim2.new(1, 0, 0, 0), -- Height will adjust dynamically
         Position = UDim2.new(0, 0, 0, 0),
         BackgroundColor3 = Util.Colors.Blue["700"],
         AutomaticSize = Enum.AutomaticSize.Y -- ✅ Auto-adjust height based on children
-
     }
 
-    -- ✅ Loop through each item and dynamically position them based on previous elements
     local currentY = 0 -- Tracks the Y position for each element
     for i, item in ipairs(items) do
         if item.Size and item.Size.Y then
@@ -37,20 +48,6 @@ return function(Scope: Fusion.Scope<any>, Props)
             warn("Item at index " .. i .. " has no valid Size.Y property.")
         end
     end
-
-    local parentFrame = Scope:Frame {
-		BackgroundTransparency = 0,
-        Size = UDim2.new(0,300,0,120),
-        Position = UDim2.new(0,10,0,10),
-        BackgroundColor3 = Util.Colors.Blue["700"]
-	}
-
-    local scrollerParent = Scope:Scroller {
-		BackgroundTransparency = 0,
-        Size = UDim2.new(1,0,1,0),
-        Position = UDim2.new(0,0,0,0),
-        BackgroundColor3 = Util.Colors.Green["700"]
-	}
 
     scrollerParent.Parent = parentFrame
     listFrame.Parent = scrollerParent

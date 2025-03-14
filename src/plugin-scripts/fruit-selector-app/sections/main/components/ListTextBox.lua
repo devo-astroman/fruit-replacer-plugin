@@ -1,9 +1,7 @@
-local Fusion = require(script.Parent.Parent.Parent.packages.Fusion)
-local OnyxUI = require(script.Parent.Parent.Parent.packages.OnyxUI)
-local constants = require(script.Parent.Parent.constants)
+local Fusion = require(script.Parent.Parent.Parent.Parent.Parent.packages.Fusion)
+local OnyxUI = require(script.Parent.Parent.Parent.Parent.Parent.packages.OnyxUI)
 
 
---[[ Component: SelectBox ]]
 return function(Scope: Fusion.Scope<any>, Props)
     local Util = OnyxUI.Util
     local InnerScope = Fusion.innerScope

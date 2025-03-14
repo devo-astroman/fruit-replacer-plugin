@@ -7,6 +7,8 @@ local SelectorFruit = require(script.Parent.sections.SelectorFruit)
 local EditorFruit = require(script.Parent.sections.EditorFruit)
 local CreatorFruit = require(script.Parent.sections.CreatorFruit)
 local ReplacerSection = require(script.Parent.sections.ReplacerSection)
+local Main = require(script.Parent.sections.main.Main)
+
 
 local scoped = Fusion.scoped
 local peek = Fusion.peek
@@ -104,7 +106,7 @@ function app.init(plugin, pluginButton)
         creator = creatorFruitSection,
     } ]]
 
-    local replacerSection = ReplacerSection(scope, {
+   --[[  local replacerSection = ReplacerSection(scope, {
         storeRef = store,
         routerRef = Router,
         goToSelector = function()
@@ -116,11 +118,25 @@ function app.init(plugin, pluginButton)
         goToCreator = function()
             Router.goToSection("creator")
         end
+    }) ]]
+
+    local mainSection = Main(scope, {
+        storeRef = store,
+        routerRef = Router,
+        --[[ goToSelector = function()
+            Router.goToSection("selector")
+        end,
+        goToEditor = function()
+            Router.goToSection("editor")
+        end,
+        goToCreator = function()
+            Router.goToSection("creator")
+        end ]]
     })
 
 
     local sections = {
-        main = replacerSection
+        main = mainSection
     }
 
     

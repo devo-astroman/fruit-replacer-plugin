@@ -7,7 +7,7 @@ return function(Scope: Fusion.Scope<any>, Props)
 	local Scope = InnerScope(Scope, Fusion, OnyxUI.Util, OnyxUI.Components)
 
     local leftSide = Scope:Frame {
-        BackgroundTransparency = 1,
+        BackgroundTransparency = 0,
         Size = UDim2.new(.5, 0, 1, 0),
         Position = UDim2.new(0, 0, 0, 0),
         BackgroundColor3 = Util.Colors.Blue["700"]
