@@ -17,6 +17,7 @@ return function(Scope: Fusion.Scope<any>, Props)
 		Position = Props.Position,
 		Size = Props.Size,
 		TextSize = 10,
-		PaddingLeft = UDim.new(0,30)
+		PaddingLeft = UDim.new(0,0),
+		TextXAlignment = Props.TextXAlignment
 	}
 end

@@ -16,7 +16,7 @@ return function(Scope: Fusion.Scope<any>, Props)
         Instruction = "Select the items to be replaced",
         NStep = 1,
         Position =  UDim2.new(0,0,0,0),
-        Size =  UDim2.new(1,0,0,0),
+        Size =  UDim2.new(1,0,0,0)
     })
 
     local text1 = Scope:Text { 
@@ -69,11 +69,31 @@ return function(Scope: Fusion.Scope<any>, Props)
         TextColor3 = Util.Colors.Stone["950"],
     }
 
+    local text6 = Scope:Text { 
+        PaddingTop = UDim.new(0,5),
+        Text = "Item 6", 
+        Size = UDim2.new(1, 0, 0, 20),
+        BackgroundColor3 = Util.Colors.Stone["50"],
+        BackgroundTransparency = 0,
+        TextSize = 9,        
+        TextColor3 = Util.Colors.Stone["950"],
+    }
+
+    local text7 = Scope:Text { 
+        PaddingTop = UDim.new(0,5),
+        Text = "Item 7", 
+        Size = UDim2.new(1, 0, 0, 20),
+        BackgroundColor3 = Util.Colors.Stone["50"],
+        BackgroundTransparency = 0,
+        TextSize = 9,        
+        TextColor3 = Util.Colors.Stone["950"],
+    }
+
     local listTextBox = ListTextBox(Scope, {
-        Items = { text1, text2, text3, text4, text5  },        
+        Items = { text1, text2, text3, text4, text5, text6, text7  },        
         Width = 100,
         Height = 100,
-        Position =  UDim2.new(0,0,0,20)
+        Position =  UDim2.new(0,0,0,0)
      })
 
 

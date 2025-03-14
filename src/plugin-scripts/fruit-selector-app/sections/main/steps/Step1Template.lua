@@ -7,7 +7,7 @@ return function(Scope: Fusion.Scope<any>, Props)
 	local Scope = InnerScope(Scope, Fusion, OnyxUI.Util, OnyxUI.Components)
 
     local titleSlot = Scope:Frame {
-        BackgroundTransparency = 0,
+        BackgroundTransparency = 1,
         Size = UDim2.new(1, 0, 1, 0),
         Position = UDim2.new(0, 0, 0, 0),
         BackgroundColor3 = Util.Colors.Blue["500"],
@@ -17,10 +17,11 @@ return function(Scope: Fusion.Scope<any>, Props)
     }
 
     local listTextBoxSlot = Scope:Frame {
-        BackgroundTransparency = 0,
+        BackgroundTransparency = 1,
         Size = UDim2.new(1, 0, 1, 0),
-        Position = UDim2.new(0, 0, 0, 0),
+        Position = UDim2.new(0, 0, 0, 50),
         BackgroundColor3 = Util.Colors.Blue["500"],
+        PaddingLeft = UDim.new(0, 20),
         [Fusion.Children] = {
             Props.ListTextBox
         }
@@ -28,10 +29,11 @@ return function(Scope: Fusion.Scope<any>, Props)
 
 
     local parentFrame = Scope:Frame {
-        BackgroundTransparency = 0,
+        BackgroundTransparency = 1,
         Size = UDim2.new(1, 0, 1, 0),
         Position = UDim2.new(0, 0, 0, 0),
         BackgroundColor3 = Util.Colors.Blue["500"],
+        PaddingLeft = UDim.new(0, 20),
         [Fusion.Children] = {
             titleSlot,
             listTextBoxSlot

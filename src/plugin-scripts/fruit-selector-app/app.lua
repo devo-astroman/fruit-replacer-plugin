@@ -9,6 +9,7 @@ local CreatorFruit = require(script.Parent.sections.CreatorFruit)
 local ReplacerSection = require(script.Parent.sections.ReplacerSection)
 local Main = require(script.Parent.sections.main.Main)
 
+local constants =  require(script.Parent.constants)
 
 local scoped = Fusion.scoped
 local peek = Fusion.peek
@@ -42,7 +43,14 @@ function app.init(plugin, pluginButton)
     pluginButton.ClickableWhenViewportHidden = true
     pluginButton.Click:Connect(app.run)
     widgetEnabled = false
-    widget = BaseWidget.getBaseWidget(plugin,"fruitSelectorGui","Fruit Selector", 600, 400, 200, 100)
+    widget = BaseWidget.getBaseWidget(plugin,
+    constants.widget.pluginGuiId,
+    constants.widget.title,
+    constants.widget.floatXSize,
+    constants.widget.floatYSize,
+    constants.widget.minWidth,
+    constants.widget.minHeight)
+    
     widget.Enabled = widgetEnabled;
 
     widget:GetPropertyChangedSignal("Enabled"):Connect(function()

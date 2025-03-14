@@ -5,6 +5,14 @@ return {
         pluginLabel = "Replacer",
         iconImage = "rbxassetid://111664717208609",
     },
+    widget = {
+        pluginGuiId = "replacerGui", 
+        title = "Replacer tool",
+        floatXSize= 600, 
+        floatYSize = 400, 
+        minWidth = 600,
+        minHeight = 400
+    },
     tools = {
         apple = {
             id = 1,
