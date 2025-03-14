@@ -9,13 +9,15 @@ return function(Scope: Fusion.Scope<any>, Props)
 	local InnerScope = Fusion.innerScope
 	local Scope = InnerScope(Scope, Fusion, OnyxUI.Util, OnyxUI.Components)
 
-    local step1 =  Step1(Scope, {})
+    local step1 =  Step1(Scope, {
+        StoreRef = Props.StoreRef
+    })
     print("step1Section ", step1)
 
     local main =   MainTemplate(Scope, {
         LeftComponent = step1,
         --[[ MiddleComponent = step1Section,
-        RightComponentComponent = step1Section, ]]
+        RightComponentComponent = step1Section, ]]        
         
     })
 

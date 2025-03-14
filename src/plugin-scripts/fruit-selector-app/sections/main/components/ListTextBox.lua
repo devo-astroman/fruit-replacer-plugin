@@ -10,7 +10,24 @@ return function(Scope: Fusion.Scope<any>, Props)
     local Scope = InnerScope(Scope, Fusion, OnyxUI.Util, OnyxUI.Components)
     local Theme = Themer.Theme:now()
 
-    local items = Props.Items or {} -- Default to empty table if nil
+    local textElements = Props.TextElements
+    local items = {}
+    for _, element in ipairs(textElements) do
+        local textComponent = Scope:Text {
+            PaddingTop = UDim.new(0,5),
+            Text = element, -- ✅ Set the element name
+            Size = UDim2.new(1, 0, 0, 20),
+            BackgroundColor3 = Util.Colors.Stone["50"],
+            BackgroundTransparency = 0,
+            TextSize = 9,        
+            TextColor3 = Util.Colors.Stone["950"],
+        }
+        table.insert(items, textComponent)
+    end
+
+    print("table - ", textElements)
+    print("items - ", items)
+    
     local height = Props.Height
     local width = Props.Width
 
