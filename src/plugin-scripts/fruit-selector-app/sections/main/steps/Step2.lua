@@ -5,6 +5,7 @@ local Step2Template = require(script.Parent.Step2Template)
 
 local StepTitle = require(script.Parent.Parent.components.StepTitle)
 local ReplacerButtons = require(script.Parent.Parent.components.ReplacerButtons)
+local OptionsList = require(script.Parent.Parent.components.ListOptions)
 
 return function(Scope: Fusion.Scope<any>, Props)	
 	local InnerScope = Fusion.innerScope
@@ -34,12 +35,23 @@ return function(Scope: Fusion.Scope<any>, Props)
         Size =  UDim2.new(1,0,0,0)
     })
 
+    local function handleOptionChange(optionsValue)
+
+        for i, value in ipairs(optionsValue) do
+            print("value: ", i,  peek(value))
+        end
+    end
+
+    local optionsList =  OptionsList(Scope, {       
+        onOptionChange = handleOptionChange,
+    })
+
 
     local step =  Step2Template(Scope, {
         Title = title,
         ReplacerButtons = replacerButtons,
-        OptionsTitle = optionsTitle
-
+        OptionsTitle = optionsTitle,
+        Options = optionsList
     })
 
     return step

@@ -45,6 +45,7 @@ return function(Scope: Fusion.Scope<any>, Props)
         BackgroundColor3 = Util.Colors.Blue["500"],
         PaddingLeft = UDim.new(0, 20),
         [Fusion.Children] = {
+            Props.Options
         }
     }
 
