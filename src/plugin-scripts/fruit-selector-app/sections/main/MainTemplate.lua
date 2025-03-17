@@ -18,11 +18,11 @@ return function(Scope: Fusion.Scope<any>, Props)
 	}
 
     local middleSlot = Scope:Frame {
-		BackgroundTransparency = 0,
+		BackgroundTransparency = 1,
         Size = UDim2.new(.333, 0, 1, 0),
         Position = UDim2.new(.333, 0, 0, 0),
         BackgroundColor3 = Util.Colors.Green["100"],
-        --[[ [Fusion.Children] = {middleComponent} ]]
+        [Fusion.Children] = {middleComponent}
 	}
 
     local rightSlot = Scope:Frame {
@@ -30,7 +30,7 @@ return function(Scope: Fusion.Scope<any>, Props)
         Size = UDim2.new(.333, 0, 1, 0),
         Position = UDim2.new(.666, 0, 0, 0),
         BackgroundColor3 = Util.Colors.Blue["100"],
-        --[[ [Fusion.Children] = {rightComponent} ]]
+        [Fusion.Children] = {rightComponent}
 	}
 
     local parentFrame = Scope:Frame {
