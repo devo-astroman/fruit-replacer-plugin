@@ -27,10 +27,19 @@ return function(Scope: Fusion.Scope<any>, Props)
         onBananaActivated = function() print("Banana button clicked!") end
      })
 
+     local optionsTitle =   StepTitle(Scope, {
+        Instruction = "Options:",
+        NStep = 1,
+        Position =  UDim2.new(0,0,0,0),
+        Size =  UDim2.new(1,0,0,0)
+    })
+
 
     local step =  Step2Template(Scope, {
         Title = title,
-        ReplacerButtons = replacerButtons
+        ReplacerButtons = replacerButtons,
+        OptionsTitle = optionsTitle
+
     })
 
     return step

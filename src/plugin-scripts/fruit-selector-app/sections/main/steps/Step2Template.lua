@@ -27,6 +27,17 @@ return function(Scope: Fusion.Scope<any>, Props)
         }
     }
 
+    local optionsTitleSlot = Scope:Frame {
+        BackgroundTransparency = 1,
+        Size = UDim2.new(1, 0, 1, 0),
+        Position = UDim2.new(0, 0, 0, 60),
+        BackgroundColor3 = Util.Colors.Blue["500"],
+        PaddingLeft = UDim.new(0, 20),
+        [Fusion.Children] = {
+            Props.OptionsTitle
+        }
+    }
+
     local optionsSlot = Scope:Frame {
         BackgroundTransparency = 1,
         Size = UDim2.new(1, 0, 1, 0),
@@ -34,7 +45,6 @@ return function(Scope: Fusion.Scope<any>, Props)
         BackgroundColor3 = Util.Colors.Blue["500"],
         PaddingLeft = UDim.new(0, 20),
         [Fusion.Children] = {
-            
         }
     }
 
@@ -48,6 +58,7 @@ return function(Scope: Fusion.Scope<any>, Props)
         [Fusion.Children] = {
             titleSlot,
             buttonsSlot,
+            optionsTitleSlot,
             optionsSlot
         }
     }
