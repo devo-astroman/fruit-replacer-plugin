@@ -5,10 +5,8 @@ local OnyxUI = require(script.Parent.Parent.Parent.Parent.Parent.packages.OnyxUI
 return function(Scope: Fusion.Scope<any>, Props)
     local Util = OnyxUI.Util
     local InnerScope = Fusion.innerScope
-    local Themer = OnyxUI.Themer
-    local peek = Fusion.peek
     local Scope = InnerScope(Scope, Fusion, OnyxUI.Util, OnyxUI.Components)
-    local Theme = Themer.Theme:now()
+    local store = Props.Store
 
     local textElements = Props.TextElements
     local items = {}
@@ -24,9 +22,6 @@ return function(Scope: Fusion.Scope<any>, Props)
         }
         table.insert(items, textComponent)
     end
-
-    print("table - ", textElements)
-    print("items - ", items)
     
     local height = Props.Height
     local width = Props.Width
@@ -39,36 +34,44 @@ return function(Scope: Fusion.Scope<any>, Props)
         BackgroundColor3 = Util.Colors.Blue["700"]
 	}
 
-    
-
     -- ✅ Parent frame with automatic height adjustment
     local listFrame = Scope:Frame {
-        BackgroundTransparency = 0,
+        BackgroundTransparency = 0, 
         Size = UDim2.new(1, 0, 0, 0), -- Height will adjust dynamically
         Position = UDim2.new(0, 0, 0, 0),
         BackgroundColor3 = Util.Colors.Blue["700"],
-        AutomaticSize = Enum.AutomaticSize.Y -- ✅ Auto-adjust height based on children
+        AutomaticSize = Enum.AutomaticSize.Y,
+        [Fusion.Children] = Scope:Computed(function(use)
+            local components = {}            
+            for i, element in ipairs(use(store.selectedElements)) do
 
+                if element.Size and element.Size.Y then
+                    
+                    local size = UDim2.new(1, 0, 0, 20) -- ✅ Position based on accumulated height                    
+                    local position = UDim2.new(0, 0, 0, (i-1)*20) -- ✅ Position based on accumulated height
+
+                    local textComponent = Scope:Text {
+                        PaddingTop = UDim.new(0,5),
+                        Text = element.Name, -- ✅ Set the element name
+                        Size = size,
+                        Position = position,
+                        BackgroundColor3 = Util.Colors.Stone["50"],
+                        BackgroundTransparency = 0,
+                        TextSize = 9,        
+                        TextColor3 = Util.Colors.Stone["950"],
+                    }
+                    table.insert(components, textComponent)
+
+                else
+                    warn("Item at index " .. i .. " has no valid Size.Y property.")
+                end
+            end
+            return components
+        end)
     }
 
     -- ✅ Loop through each item and dynamically position them based on previous elements
     local totalHeight = 0 -- ✅ Tracks total height of all items
-    local currentY = 0 -- ✅ Tracks the Y position for each element
-    
-    for i, item in ipairs(items) do
-        if item.Size and item.Size.Y then            
-            local itemSizeY = item.Size.Y.Offset -- ✅ Get the item's height dynamically
-            
-            item.Size = UDim2.new(0, width, 0, itemSizeY) -- ✅ Position based on accumulated height
-            item.Parent = listFrame
-            item.Position = UDim2.new(0, 0, 0, currentY) -- ✅ Position based on accumulated height
-            
-            currentY = currentY + itemSizeY -- ✅ Update for the next element
-            totalHeight = totalHeight + itemSizeY -- ✅ Accumulate total height
-        else
-            warn("Item at index " .. i .. " has no valid Size.Y property.")
-        end
-    end
 
     local scrollerParent = Scope:Scroller {
 		BackgroundTransparency = 0,
@@ -78,15 +81,8 @@ return function(Scope: Fusion.Scope<any>, Props)
         BackgroundColor3 = Util.Colors.Emerald["800"]
 	}
 
-    if totalHeight > height then    
-        scrollerParent.Parent = parentFrame
-        listFrame.Parent = scrollerParent
-    else
-        listFrame.Parent = parentFrame
-    end
-
-    
+    scrollerParent.Parent = parentFrame
+    listFrame.Parent = scrollerParent    
 
     return parentFrame
 end
-

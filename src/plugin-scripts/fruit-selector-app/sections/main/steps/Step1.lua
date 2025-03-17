@@ -21,22 +21,20 @@ return function(Scope: Fusion.Scope<any>, Props)
     })
 
     local listTextBox = ListTextBox(Scope, {
-        --[[ TextElements = textElements,    ]]
         TextElements =  Scope:Computed(function(Use)
-
-            print("HEREFLAG ", peek(store.selectedElements))
             local textElements = {}
             for index = 1, Use(store.nSelectedElements) do
                 table.insert(textElements, "Text " .. index)
-            end
-            --[[ for _, elm in ipairs(Use(store.selectedElements)) do
-                table.insert(textElements, elm.Name) -- ✅ Extracts the Name property
-            end ]]
+            end            
             return textElements
         end),  
         Width = 100,
         Height = 100,
-        Position =  UDim2.new(0,0,0,0)
+        Position =  UDim2.new(0,0,0,0),
+        HeaderText = Scope:Computed(function()
+            return "my text"
+        end),
+        Store = store
      })
 
 
