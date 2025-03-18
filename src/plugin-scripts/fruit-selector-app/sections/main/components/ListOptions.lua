@@ -31,18 +31,8 @@ return function(Scope: Fusion.Scope<any>, Props)
         local function onSwitchChanged(index)
             local switchChanged = optionValues[index]
             switchChanged:set(not(peek(switchChanged)))
-            --[[ local optionsValue = {}
-            for i, value in ipairs(optionValues) do
-                local newValue = not(peek(value))
-                value:set(newValue)
-            end ]]
-            print("switched ", index)
             onOptionChange(optionValues) -- Call the callback with updated values
         end
-
-        -- Watch for changes and call the callback
-        --[[ switchValue:onChange(onSwitchChanged) ]]
-
         return Scope:Frame {
             BackgroundTransparency = 1,
             Size = UDim2.new(1, 0, 0, 30), -- Each item height
@@ -50,9 +40,7 @@ return function(Scope: Fusion.Scope<any>, Props)
                 Scope:SwitchInput {
                     Size = UDim2.new(0, 40, 0, 30), -- Checkbox size
                     Position = UDim2.new(0, 0, 0, index * 40),
---[[                     Switched = true, ]]
                     Switched = switchValue,
-                    --[[ Switched =  peek(optionValues[index]), -- Bind to Fusion state ]]
                     OnActivated = function()
                         onSwitchChanged(index)
                     end 
