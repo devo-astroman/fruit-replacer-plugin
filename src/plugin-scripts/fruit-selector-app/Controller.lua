@@ -1,3 +1,5 @@
+local loadEmbeddedModel = require(script.Parent.Parent.utils.EmbeddedAssetLoader)
+
 local storeManager = nil
 local plugin = nil
 local Selection = game:GetService("Selection")
@@ -54,10 +56,29 @@ function controller.run()
 end
 
 function controller.replace() 
-    --[[ local store = storeManager.getStore()
+    local store = storeManager.getStore()
     local peek = storeManager.getUtils().peek
-    local elementsToBeReplaced = peek(store.selectedElements) ]]
+    local elementsToBeReplaced = peek(store.selectedElements)
+    local replacerElementId = peek(store.replacerElement)
     print("Fill here with replace code!")
+
+    local model = nil
+    local addToWorkspace = true
+    if replacerElementId == 1 then
+        model = loadEmbeddedModel("appleModel",addToWorkspace)
+    elseif replacerElementId == 2 then
+        model = loadEmbeddedModel("pearModel",addToWorkspace)
+    elseif replacerElementId == 3 then
+        model = loadEmbeddedModel("bananaModel",addToWorkspace)
+    end
+
+    if model ~= nil then
+        print(" model _ ", model)
+        --[[ modelLoaded:set(model) ]]
+    else
+        print("No asset found!")
+    end
+
 
 end
 
