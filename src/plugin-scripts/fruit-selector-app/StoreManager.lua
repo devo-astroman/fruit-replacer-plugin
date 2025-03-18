@@ -4,7 +4,9 @@ local store = {
     nSelectedElements = nil,
     selectedElements = nil,
     selectedElementsObs = nil,
-    options = nil    
+    options = nil,
+    replacerElement = nil,
+    replacerElementObs = nil
 }
 
 local storeManager = {}
@@ -20,6 +22,9 @@ function storeManager.init(Fusion, scope)
         scale = Fusion.Value(scope, false),
         confirm = Fusion.Value(scope, true),
     }
+    store.replacerElement = Fusion.Value(scope, 0)
+    store.replacerElementObs = scope:Observer(store.replacerElement)
+    
 --[[ -- Monitor selected elements
     store.selectedElementsObs:onChange(function()
         print("store.selectedElements >> : ", peek(store.selectedElements))

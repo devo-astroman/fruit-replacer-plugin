@@ -25,9 +25,9 @@ return function(Scope: Fusion.Scope<any>, Props)
         Disabled =  Scope:Computed(function(use)
             return #(peek(use(store.selectedElements))) == 0
         end),
-        onAppleActivated = function() print("Apple button clicked!") end,
-        onPearActivated = function() print("Pear button clicked!") end,
-        onBananaActivated = function() print("Banana button clicked!") end,
+        onAppleActivated = function() store.replacerElement:set(1) end,
+        onPearActivated = function() store.replacerElement:set(2) end,
+        onBananaActivated = function() store.replacerElement:set(3) end,
         Store = store
      })
 
