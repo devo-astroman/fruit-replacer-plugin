@@ -11,54 +11,46 @@ return function(Scope: Fusion.Scope<any>, Props)
 
     -- Callback function from props
     local onOptionChange = Props.onOptionChange or function() end
-
-    -- ✅ List of option labels
-    local optionLabels = {
-        "Delete items to be replaced",
-        "Copy orientation",
-        "Copy scale",
-        "Confirm action"
-    }
-
-    -- ✅ Store boolean states for each option
-    local optionValues = {} -- Table to track switch states
-
-    print("SwitchValue ", SwitchValue)
-    local value1 = Fusion.Value(Scope, true)
+    
     local switchValue1 = SwitchValue(Scope,{
-        Index = 1,
+        Key = 1,
         Text = "Delete items to be replaced",
-        Value = value1,
-        OnOptionChange = function()
+        Value = Props.Value1.value,
+        OnOptionChange = function( )
             print("should change 1")
-            --[[ local switchChanged = optionValues[index] ]]
-            value1:set(not(peek(value1)))
+            Props.OnOptionChange(Props.Value1.key)
         end
     })
 
-    --[[ local switchValue2 = SwitchValue(Scope,{
-        Index = 2,
+    local switchValue2 = SwitchValue(Scope,{
+        Key = 2,
         Text = "Copy Orientation",
-        OnOptionChange = function()
+        Value = Props.Value2.value,
+        OnOptionChange = function( )
             print("should change 2")
-        end        
+            Props.OnOptionChange(Props.Value2.key)
+        end
     })
 
     local switchValue3 = SwitchValue(Scope,{
-        Index = 3,
+        Key = 3,
         Text = "Copy Scale",
-        OnOptionChange = function()
+        Value = Props.Value3.value,
+        OnOptionChange = function( )
             print("should change 3")
-        end        
+            Props.OnOptionChange(Props.Value3.key)
+        end
     })
 
     local switchValue4 = SwitchValue(Scope,{
-        Index = 4,
-        Text = "Confirm action",
-        OnOptionChange = function()
+        Key = 4,
+        Text = "Need Confirm",
+        Value = Props.Value4.value,
+        OnOptionChange = function( )
             print("should change 4")
-        end        
-    }) ]]
+            Props.OnOptionChange(Props.Value4.key)
+        end
+    })
 
     local parentFrame = Scope:Frame {
         BackgroundTransparency = 1,
@@ -68,11 +60,12 @@ return function(Scope: Fusion.Scope<any>, Props)
         AutomaticSize = Enum.AutomaticSize.Y,
         [Fusion.Children] = {
             switchValue1,
-            --[[ switchValue2,
+            switchValue2,
             switchValue3,
-            switchValue4 ]]
+            switchValue4
         }
     }
-
+    
     return parentFrame
+
 end

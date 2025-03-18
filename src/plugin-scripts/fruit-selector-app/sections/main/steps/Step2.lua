@@ -34,16 +34,22 @@ return function(Scope: Fusion.Scope<any>, Props)
         Position =  UDim2.new(0,0,0,0),
         Size =  UDim2.new(1,0,0,0)
     })
-
-    local function handleOptionChange(optionsValue)
-
-        for i, value in ipairs(optionsValue) do
-            print("value: ", i,  peek(value))
-        end
+    
+    local value1 = store.options.delete
+    local value2 = store.options.orientation
+    local value3 = store.options.scale
+    local value4 = store.options.confirm
+    local function handleOptionChange(key)
+        local value = store.options[key];
+        value:set(not(peek(value)))
     end
 
     local optionsList =  OptionsList(Scope, {       
-        onOptionChange = handleOptionChange,
+        OnOptionChange = handleOptionChange,
+        Value1 = {key = "delete", value = value1},
+        Value2 = {key = "orientation", value = value2},
+        Value3 = {key = "scale", value = value3},
+        Value4 = {key = "confirm", value = value4},
     })
 
 
