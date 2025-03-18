@@ -20,6 +20,14 @@ function storeManager.init(Fusion, scope)
         scale = Fusion.Value(scope, false),
         confirm = Fusion.Value(scope, true),
     }
+--[[ -- Monitor selected elements
+    store.selectedElementsObs:onChange(function()
+        print("store.selectedElements >> : ", peek(store.selectedElements))
+        for _, obj in pairs(peek(store.selectedElements)) do
+            print("HERE:", obj)
+        end
+    end) ]]
+
 end
 function storeManager.setSelectedElements(selectedElements)
     store.nSelectedElements:set(#selectedElements)
