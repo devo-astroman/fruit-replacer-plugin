@@ -21,23 +21,25 @@ end
 function controller.run()
    print("controller run ", Selection)
    Selection.SelectionChanged:Connect(function()
-      local selected = Selection:Get() -- Get currently selected objects
+    local selected = Selection:Get() -- Get currently selected objects
+    selectedElements = {} -- Reset table
 
-    if #selected > 0 then
-        selectedElements = selected -- Save selection
-        print("Selected Elements:", #selectedElements)
-        for _, obj in pairs(selectedElements) do
-            print("Selected:", obj.Name)
+    for _, object in pairs(selected) do
+        if object:IsA("BasePart") then 
+            table.insert(selectedElements, object)
+        end
+    end
+
+    if #selectedElements > 0 then
+        print("Selected BaseParts:", #selectedElements)
+        for _, obj in ipairs(selectedElements) do
+            print("__ __ __ Selected:", obj.Name)
         end
     else
-        -- If no elements are selected, reset the table
-        selectedElements = {}
-        print("No elements selected. Selection cleared.")
+        print("No BaseParts selected. Selection cleared.")
     end
     storeManager.setSelectedElements(selectedElements)
    end)
-   
-    
 end
 
 return controller
