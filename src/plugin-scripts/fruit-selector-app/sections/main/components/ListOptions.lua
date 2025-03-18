@@ -1,6 +1,7 @@
 local Fusion = require(script.Parent.Parent.Parent.Parent.Parent.packages.Fusion)
 local OnyxUI = require(script.Parent.Parent.Parent.Parent.Parent.packages.OnyxUI)
 
+local SwitchValue = require(script.Parent.SwitchValue)
 
 return function(Scope: Fusion.Scope<any>, Props)
     local Util = OnyxUI.Util
@@ -22,53 +23,54 @@ return function(Scope: Fusion.Scope<any>, Props)
     -- ✅ Store boolean states for each option
     local optionValues = {} -- Table to track switch states
 
-    -- ✅ Function to create each option
-    local function createOption(index, text)
-        local switchValue = Fusion.Value(Scope, false) -- Default false
-        optionValues[index] = switchValue -- Store reference to this value
-
-        -- Function to call when the switch is toggled
-        local function onSwitchChanged(index)
-            local switchChanged = optionValues[index]
-            switchChanged:set(not(peek(switchChanged)))
-            onOptionChange(optionValues) -- Call the callback with updated values
+    print("SwitchValue ", SwitchValue)
+    local value1 = Fusion.Value(Scope, true)
+    local switchValue1 = SwitchValue(Scope,{
+        Index = 1,
+        Text = "Delete items to be replaced",
+        Value = value1,
+        OnOptionChange = function()
+            print("should change 1")
+            --[[ local switchChanged = optionValues[index] ]]
+            value1:set(not(peek(value1)))
         end
-        return Scope:Frame {
-            BackgroundTransparency = 1,
-            Size = UDim2.new(1, 0, 0, 30), -- Each item height
-            [Fusion.Children] = {
-                Scope:SwitchInput {
-                    Size = UDim2.new(0, 40, 0, 30), -- Checkbox size
-                    Position = UDim2.new(0, 0, 0, index * 40),
-                    Switched = switchValue,
-                    OnActivated = function()
-                        onSwitchChanged(index)
-                    end 
-                },
-                Scope:Text {
-                    Text = text,
-                    Size = UDim2.new(1, 0, 1, 0), -- Adjust width for text
-                    Position = UDim2.new(0, 50, 0, index * 40),
-                    TextSize = 12,
-                    BackgroundTransparency = 1,
-                    TextColor3 = Util.Colors.Green["950"]
-                }
-            }
-        }
-    end
+    })
 
-    -- ✅ Parent frame containing the options
+    --[[ local switchValue2 = SwitchValue(Scope,{
+        Index = 2,
+        Text = "Copy Orientation",
+        OnOptionChange = function()
+            print("should change 2")
+        end        
+    })
+
+    local switchValue3 = SwitchValue(Scope,{
+        Index = 3,
+        Text = "Copy Scale",
+        OnOptionChange = function()
+            print("should change 3")
+        end        
+    })
+
+    local switchValue4 = SwitchValue(Scope,{
+        Index = 4,
+        Text = "Confirm action",
+        OnOptionChange = function()
+            print("should change 4")
+        end        
+    }) ]]
+
     local parentFrame = Scope:Frame {
         BackgroundTransparency = 1,
-        Size = UDim2.new(0, 200, 0, 0), -- Width fixed, height dynamic
+        Size = UDim2.new(0, 200, 0, 0), 
         Position = UDim2.new(0, 0, 0, 0),
         BackgroundColor3 = Util.Colors.Blue["700"],
-        AutomaticSize = Enum.AutomaticSize.Y, -- ✅ Adjust height dynamically
+        AutomaticSize = Enum.AutomaticSize.Y,
         [Fusion.Children] = {
-            createOption(1, optionLabels[1]),
-            createOption(2, optionLabels[2]),
-            createOption(3, optionLabels[3]),
-            createOption(4, optionLabels[4])
+            switchValue1,
+            --[[ switchValue2,
+            switchValue3,
+            switchValue4 ]]
         }
     }
 
