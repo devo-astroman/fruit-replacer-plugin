@@ -22,10 +22,13 @@ return function(Scope: Fusion.Scope<any>, Props)
     })
 
     local replacerButtons = ReplacerButtons(Scope, {
-        available = true,
+        Disabled =  Scope:Computed(function(use)
+            return #(peek(use(store.selectedElements))) == 0
+        end),
         onAppleActivated = function() print("Apple button clicked!") end,
         onPearActivated = function() print("Pear button clicked!") end,
-        onBananaActivated = function() print("Banana button clicked!") end
+        onBananaActivated = function() print("Banana button clicked!") end,
+        Store = store
      })
 
      local optionsTitle =   StepTitle(Scope, {

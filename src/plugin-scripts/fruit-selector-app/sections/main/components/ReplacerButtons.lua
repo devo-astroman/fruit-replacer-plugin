@@ -7,8 +7,10 @@ return function(Scope: Fusion.Scope<any>, Props)
     local InnerScope = Fusion.innerScope
     local Scope = InnerScope(Scope, Fusion, OnyxUI.Util, OnyxUI.Components)
     local store = Props.Store
+    local peek = Fusion.peek
 
-    local available = Props.available or false
+    local disabled = Props.Disabled
+    
     local onAppleActivated = Props.onAppleActivated or function() end
     local onPearActivated = Props.onPearActivated or function() end
     local onBananaActivated = Props.onBananaActivated or function() end
@@ -23,7 +25,7 @@ return function(Scope: Fusion.Scope<any>, Props)
         Image = "rbxassetid://4800956040", -- Replace with actual Apple icon asset ID
         Size = UDim2.new(0, sizeX, 0, sizeY),
         Position = UDim2.new(0, posX*0, 0, 0),
-        Disabled = not available,
+        Disabled = disabled,
         OnActivated = onAppleActivated
     }
 
@@ -33,7 +35,7 @@ return function(Scope: Fusion.Scope<any>, Props)
         Image = "rbxassetid://13789464687", -- Replace with actual Pear icon asset ID
         Size = UDim2.new(0, sizeX, 0, sizeY),
         Position = UDim2.new(0, posX*1, 0, 0),
-        Disabled = not available,
+        Disabled = disabled,
         OnActivated = onPearActivated
     }
 
@@ -43,7 +45,7 @@ return function(Scope: Fusion.Scope<any>, Props)
         Image = "rbxassetid://12825469459", -- Replace with actual Banana icon asset ID
         Size = UDim2.new(0, sizeX, 0, sizeY),
         Position = UDim2.new(0, posX*2, 0, 0),
-        Disabled = not available,
+        Disabled = disabled,
         OnActivated = onBananaActivated
     }
 

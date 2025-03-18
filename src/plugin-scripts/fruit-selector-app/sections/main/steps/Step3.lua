@@ -24,7 +24,7 @@ return function(Scope: Fusion.Scope<any>, Props)
 
     local confirmMessage = ConfirmMessage(Scope, {
         Message = "Do you confirm the replacement?",
-        onAnswer = function(response)
+        OnAnswer = function(response)
             if response then
                 print("Should complete the operation")
             else
