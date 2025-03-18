@@ -3,8 +3,9 @@ local OnyxUI = require(script.Parent.Parent.Parent.Parent.packages.OnyxUI)
 
 local Step1 = require(script.Parent.steps.Step1)
 local Step2 = require(script.Parent.steps.Step2)
-local MainTemplate = require(script.Parent.MainTemplate)
+local Step3 = require(script.Parent.steps.Step3)
 
+local MainTemplate = require(script.Parent.MainTemplate)
 
 return function(Scope: Fusion.Scope<any>, Props)	
 	local InnerScope = Fusion.innerScope
@@ -17,15 +18,17 @@ return function(Scope: Fusion.Scope<any>, Props)
     local step2 =  Step2(Scope, {
         StoreRef = Props.StoreRef
     })
-    print("step1Section ", step1)
+    
+    local step3 =  Step3(Scope, {
+        StoreRef = Props.StoreRef
+    })
 
     local main =   MainTemplate(Scope, {
         LeftComponent = step1,
         MiddleComponent = step2,
-        --[[ RightComponentComponent = step1Section, ]]        
+        RightComponent = step3,
         
     })
 
-    --[[ return step1Section ]]
 	return main
 end

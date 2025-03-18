@@ -26,10 +26,10 @@ return function(Scope: Fusion.Scope<any>, Props)
 	}
 
     local rightSlot = Scope:Frame {
-		BackgroundTransparency = 0,
+		BackgroundTransparency = 1,
         Size = UDim2.new(.333, 0, 1, 0),
         Position = UDim2.new(.666, 0, 0, 0),
-        BackgroundColor3 = Util.Colors.Blue["100"],
+        BackgroundColor3 = Util.Colors.Red["700"],
         [Fusion.Children] = {rightComponent}
 	}
 

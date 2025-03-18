@@ -16,39 +16,16 @@ return function(Scope: Fusion.Scope<any>, Props)
         }
     }
 
-    local buttonsSlot = Scope:Frame {
+    local messageSlot = Scope:Frame {
         BackgroundTransparency = 1,
         Size = UDim2.new(1, 0, 1, 0),
         Position = UDim2.new(0, 0, 0, 30),
         BackgroundColor3 = Util.Colors.Blue["500"],
         PaddingLeft = UDim.new(0, 20),
         [Fusion.Children] = {
-            Props.ReplacerButtons
+            Props.Message
         }
     }
-
-    local optionsTitleSlot = Scope:Frame {
-        BackgroundTransparency = 1,
-        Size = UDim2.new(1, 0, 1, 0),
-        Position = UDim2.new(0, 0, 0, 80),
-        BackgroundColor3 = Util.Colors.Blue["500"],
-        PaddingLeft = UDim.new(0, 20),
-        [Fusion.Children] = {
-            Props.OptionsTitle
-        }
-    }
-
-    local optionsSlot = Scope:Frame {
-        BackgroundTransparency = 1,
-        Size = UDim2.new(1, 0, 1, 0),
-        Position = UDim2.new(0, 0, 0, 80),
-        BackgroundColor3 = Util.Colors.Blue["500"],
-        PaddingLeft = UDim.new(0, 20),
-        [Fusion.Children] = {
-            Props.Options
-        }
-    }
-
 
     local parentFrame = Scope:Frame {
         BackgroundTransparency = 1,
@@ -58,9 +35,7 @@ return function(Scope: Fusion.Scope<any>, Props)
         PaddingLeft = UDim.new(0, 20),
         [Fusion.Children] = {
             titleSlot,
-            buttonsSlot,
-            optionsTitleSlot,
-            optionsSlot
+            messageSlot
         }
     }
 
