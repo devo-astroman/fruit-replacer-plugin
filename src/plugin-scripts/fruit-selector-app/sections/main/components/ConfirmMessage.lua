@@ -26,7 +26,7 @@ return function(Scope: Fusion.Scope<any>, Props)
         Padding = 0,
 		Content = {"Cancel"},
         Size = UDim2.new(0, 100, 0, 30),
-        Position = UDim2.new(0, 0, 0, 0),
+        Position = UDim2.new(0, 0, 0, 35),
         OnActivated = function()
 			onAnswer(false)
 		end 
@@ -37,7 +37,7 @@ return function(Scope: Fusion.Scope<any>, Props)
         Padding = 0,
 		Content = {"Confirm"},
         Size = UDim2.new(0, 100, 0, 30),
-        Position = UDim2.new(0, 100, 0, 0),
+        Position = UDim2.new(0, 100, 0, 35),
         OnActivated = function()
 			onAnswer(true)
 		end 

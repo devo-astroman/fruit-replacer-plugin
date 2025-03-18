@@ -20,7 +20,6 @@ return function(Scope: Fusion.Scope<any>, Props)
 
     local completeMessage = CompleteMessage(Scope, {
         Message = "Replacement complete",
-
     })
 
     local confirmMessage = ConfirmMessage(Scope, {
@@ -31,11 +30,10 @@ return function(Scope: Fusion.Scope<any>, Props)
             else
                 print("Should cancel the operation")
             end
-            
         end
     })
 
-    local shouldConfirm = false
+    local shouldConfirm = true
 
     local message = completeMessage
     if shouldConfirm then
