@@ -6,7 +6,9 @@ local Selection = game:GetService("Selection")
 
 -- Table to store selected elements
 local selectedElements = {}
+local ChangeHistoryService = game:GetService("ChangeHistoryService")
 
+local undoStack = {}
 local controller = {}
 function controller.init(pluginRef, storeManagerRef)
    plugin = pluginRef
@@ -19,10 +21,16 @@ function controller.init(pluginRef, storeManagerRef)
       --[[ textLabel.Text = "Hello World! " .. peek(nTimesOpen) ]]
   end)
 
+  ChangeHistoryService.OnUndo:Connect(function(value)
+    if(value == "Elements Replaced") then
+        Selection:Set({})
+    end
+  end)
+
 end
 function controller.run()
    print("controller run ", Selection)
-   local store = storeManager.getStore()
+   local store = storeManager.getStore()   
    Selection.SelectionChanged:Connect(function()
     local selected = Selection:Get() -- Get currently selected objects
     selectedElements = {} -- Reset table
@@ -59,6 +67,9 @@ end
 
 
 local replaceElementsBy = function(listElements, replacer, options)
+
+    ChangeHistoryService:SetWaypoint("Replacing Elements")
+
     -- ✅ Ensure the Bin folder exists
     local binFolder = game.Workspace:FindFirstChild("Bin")
     if not binFolder then
@@ -70,9 +81,12 @@ local replaceElementsBy = function(listElements, replacer, options)
     local originalData = {}
     local replacerData = {}
 
+    local undoData = {}
+
+
     -- ✅ Loop through each element in listElements
     for _, element in ipairs(listElements) do
-        if element:IsA("BasePart") then -- Ensure only BaseParts are processed
+        if element:IsA("BasePart") then -- Ensure only BaseParts are processed            
 
             if options.confirm then
                 -- here should save the element and its parent in order to in the future if is needed then could restore them
@@ -93,6 +107,15 @@ local replaceElementsBy = function(listElements, replacer, options)
             -- ✅ Clone the replacer model
             local newClone = replacer:Clone()
             table.insert(replacerData,newClone)
+
+            -- ✅ Save original element data for undo
+            table.insert(undoData, {
+                originalElement = element,
+                replacement = newClone,
+                originalParent = element.Parent,
+                originalCFrame = element.CFrame,
+                originalSize = element.Size
+            })
 
             -- ✅ Set the cloned object's Parent & Name
             newClone.Parent = element.Parent
@@ -188,6 +211,10 @@ local replaceElementsBy = function(listElements, replacer, options)
             end
         end
     end
+
+    table.insert(undoStack, undoData)
+
+    ChangeHistoryService:SetWaypoint("Elements Replaced")
 
     return {originalData = originalData, replacerData = replacerData}
 end
