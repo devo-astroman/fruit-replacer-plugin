@@ -35,11 +35,13 @@ function controller.run()
 
     if #selectedElements > 0 then
         print("Selected BaseParts:", #selectedElements)
+        store.showComplete:set(false)
         for _, obj in ipairs(selectedElements) do
             print("__ __ __ Selected:", obj.Name)
         end
     else
         store.replacerElement:set(0)
+        store.showConfirm:set(false)
         print("No BaseParts selected. Selection cleared.")
     end
     storeManager.setSelectedElements(selectedElements)
@@ -55,27 +57,8 @@ function controller.run()
 
 end
 
- --[[ 
-Can you complete the next function? 
+
 local replaceElementsBy = function(listElements, replacer, options)
-   
-
-        This function receives 3 paramanters
-            listElements: the list of elements (BasePart elements) to take the position and the Parent from, depending on the options can be taken orientation and scale too and once copied the data from the element should be deleted (changed the parent to a folder named "Bin") or not.
-
-            replacer: it is a model that should be cloned, every clone should be placed in each of the position of each element of the listElements, the Parent should be the same Parent that has the element from the listElement and the Name should be copied too. Other options can be applied too from the options parameter
-
-            options: it is a table of keys and booleans { delete:boolean, orientation:boolean, scale:boolean }
-                local deleteElement = options.delete -- if true then the element of the listElements should be moved to a new folder named Bin, if false the element should not be removed
-                local copyOrientation = options.copy --  if true the new replacer should take the orientation from the current element of the list, if false should ignore the orientation
-                local copyScale = options.scale -- same as copyOrientation but with the scale
-
-        
-   
-end
- ]]
-
- local replaceElementsBy = function(listElements, replacer, options)
     -- ✅ Ensure the Bin folder exists
     local binFolder = game.Workspace:FindFirstChild("Bin")
     if not binFolder then
@@ -84,9 +67,23 @@ end
         binFolder.Parent = game.Workspace
     end
 
+    local originalData = {}
+    local replacerData = {}
+
     -- ✅ Loop through each element in listElements
     for _, element in ipairs(listElements) do
         if element:IsA("BasePart") then -- Ensure only BaseParts are processed
+
+            if options.confirm then
+                -- here should save the element and its parent in order to in the future if is needed then could restore them
+                table.insert(originalData,{
+                    element = element,
+                    parent = element.Parent,
+                    transparency = element.Transparency,
+                    cframe = element.CFrame,
+                    size = element.Size
+                })
+            end
 
             -- make the element transparent if it will be deleted
             if options.delete then
@@ -95,6 +92,7 @@ end
 
             -- ✅ Clone the replacer model
             local newClone = replacer:Clone()
+            table.insert(replacerData,newClone)
 
             -- ✅ Set the cloned object's Parent & Name
             newClone.Parent = element.Parent
@@ -146,10 +144,7 @@ end
                         for _, part in ipairs(newClone:GetDescendants()) do
                             if part:IsA("BasePart") and part ~= primaryPart then
                                 -- Get original proportions of the child relative to the PrimaryPart
-                                local originalSize = part.Size
-                                local relativeScaleX = originalSize.X / originalPrimarySize.X
-                                local relativeScaleY = originalSize.Y / originalPrimarySize.Y
-                                local relativeScaleZ = originalSize.Z / originalPrimarySize.Z
+                                local originalSize = part.Size                                
                 
                                 -- Apply proportional scaling
                                 part.Size = Vector3.new(
@@ -193,6 +188,8 @@ end
             end
         end
     end
+
+    return {originalData = originalData, replacerData = replacerData}
 end
 
 
@@ -205,11 +202,12 @@ function controller.replace()
         delete = peek(store.options.delete), 
         copy = peek(store.options.copy), 
         scale = peek(store.options.scale), 
+        confirm = peek(store.options.confirm)
     } 
     print("Fill here with replace code!")
 
     local model = nil
-    local addToWorkspace = true
+    local addToWorkspace = false
     if replacerElementId == 1 then
         model = loadEmbeddedModel("appleModel",addToWorkspace)
     elseif replacerElementId == 2 then
@@ -221,12 +219,62 @@ function controller.replace()
     if model ~= nil then
         print(" model _ ", model)
         --[[ modelLoaded:set(model) ]]
-        replaceElementsBy(elementsToBeReplaced, model, options)
+        local resultData = replaceElementsBy(elementsToBeReplaced, model, options)
+
+        if options.confirm then
+            print("Show message")
+            store.showConfirm:set(true)
+            store.originalData:set(resultData.originalData)
+            store.replacerData:set(resultData.replacerData)
+        else
+            controller.Confirm()
+        end
+
     else
         print("No asset found!")
     end
+end
 
+function controller.Confirm()
+    local store = storeManager.getStore()
+    --[[ local peek = storeManager.getUtils().peek ]]
+    print("Controller confirm")
+    store.showComplete:set(true)
+    store.showConfirm:set(false)
+    store.originalData:set({})
+    store.replacerData:set({})
+    local binFolder = game.Workspace:FindFirstChild("Bin")
+    if binFolder then
+        binFolder:Destroy()
+    end
+end
 
+function controller.Cancel()
+    print("Controller cancels")
+    local store = storeManager.getStore()
+    local peek = storeManager.getUtils().peek
+
+    for _, elementData in ipairs(peek(store.originalData)) do
+
+        print("elementData ", elementData)
+        elementData.element.Parent = elementData.parent
+        elementData.element.Transparency = elementData.transparency
+        elementData.element.CFrame = elementData.cframe
+        elementData.element.Size = elementData.size
+    end
+
+    local replacerData = peek(store.replacerData)
+    for i = #replacerData, 1, -1 do
+        local elem = replacerData[i]
+        if elem then
+            elem:Destroy() -- ✅ Directly destroy
+        end
+    end
+
+    store.showComplete:set(false)
+    store.showConfirm:set(false)
+    store.originalData:set({})
+    store.replacerData:set({})
 end
 
 return controller

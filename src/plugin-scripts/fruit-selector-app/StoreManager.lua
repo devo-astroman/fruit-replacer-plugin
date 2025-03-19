@@ -6,7 +6,12 @@ local store = {
     selectedElementsObs = nil,
     options = nil,
     replacerElement = nil,
-    replacerElementObs = nil
+    replacerElementObs = nil,
+    showConfirm = nil,
+    showComplete = nil,
+    showConfirmObs = nil,
+    originalData = nil,
+    replacerData = nil,
 }
 
 local storeManager = {}
@@ -24,6 +29,14 @@ function storeManager.init(Fusion, scope)
     }
     store.replacerElement = Fusion.Value(scope, 0)
     store.replacerElementObs = scope:Observer(store.replacerElement)
+    store.showConfirm = Fusion.Value(scope, false)
+    store.showComplete = Fusion.Value(scope, false)
+    store.showConfirmObs = scope:Observer(store.showConfirm)
+    store.originalData = Fusion.Value(scope, {})
+    store.replacerData = Fusion.Value(scope, {})
+    
+    
+    
     
 --[[ -- Monitor selected elements
     store.selectedElementsObs:onChange(function()

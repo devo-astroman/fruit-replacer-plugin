@@ -44,6 +44,7 @@ function app.init(plugin, pluginButton)
     local mainSection = Main(scope, {
         StoreRef = store,
         RouterRef = Router,
+        ControllerRef = controller
     })
 
     local sections = {

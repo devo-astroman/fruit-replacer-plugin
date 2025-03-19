@@ -10,6 +10,8 @@ local ConfirmMessage = require(script.Parent.Parent.components.ConfirmMessage)
 return function(Scope: Fusion.Scope<any>, Props)	
 	local InnerScope = Fusion.innerScope
 	local Scope = InnerScope(Scope, Fusion, OnyxUI.Util, OnyxUI.Components)
+    local store = Props.StoreRef
+    local controller = Props.Controller
 
     local title =   StepTitle(Scope, {
         Instruction = "Result",
@@ -27,22 +29,20 @@ return function(Scope: Fusion.Scope<any>, Props)
         OnAnswer = function(response)
             if response then
                 print("Should complete the operation")
+                controller.Confirm()
             else
                 print("Should cancel the operation")
+                controller.Cancel()
             end
         end
     })
 
-    local shouldConfirm = true
-
-    local message = completeMessage
-    if shouldConfirm then
-        message = confirmMessage
-    end
-
     local step =  Step3Template(Scope, {
         Title = title,
-        Message =  message
+        CompleteMessage = completeMessage,
+        ConfirmMessage = confirmMessage,
+        ShowConfirm = store.showConfirm,
+        ShowComplete = store.showComplete
     })
 
     return step
