@@ -34,17 +34,6 @@ function storeManager.init(Fusion, scope)
     store.showConfirmObs = scope:Observer(store.showConfirm)
     store.originalData = Fusion.Value(scope, {})
     store.replacerData = Fusion.Value(scope, {})
-    
-    
-    
-    
---[[ -- Monitor selected elements
-    store.selectedElementsObs:onChange(function()
-        print("store.selectedElements >> : ", peek(store.selectedElements))
-        for _, obj in pairs(peek(store.selectedElements)) do
-            print("HERE:", obj)
-        end
-    end) ]]
 
 end
 function storeManager.setSelectedElements(selectedElements)

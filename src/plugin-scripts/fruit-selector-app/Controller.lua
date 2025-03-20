@@ -14,13 +14,6 @@ function controller.init(pluginRef, storeManagerRef)
    plugin = pluginRef
    storeManager = storeManagerRef
 
-   local myStore = storeManagerRef.getStore()
-   local peek = storeManagerRef.getUtils().peek
-   myStore.selectedElementsObs:onChange(function()
-      print("The new TABLE value is: ", peek(myStore.selectedElements))
-      --[[ textLabel.Text = "Hello World! " .. peek(nTimesOpen) ]]
-  end)
-
   ChangeHistoryService.OnUndo:Connect(function(value)
     if(value == "Elements Replaced") then
         Selection:Set({})
@@ -29,7 +22,6 @@ function controller.init(pluginRef, storeManagerRef)
 
 end
 function controller.run()
-   print("controller run ", Selection)
    local store = storeManager.getStore()   
    Selection.SelectionChanged:Connect(function()
     local selected = Selection:Get() -- Get currently selected objects
@@ -42,22 +34,16 @@ function controller.run()
     end
 
     if #selectedElements > 0 then
-        print("Selected BaseParts:", #selectedElements)
         store.showComplete:set(false)
-        for _, obj in ipairs(selectedElements) do
-            print("__ __ __ Selected:", obj.Name)
-        end
     else
         store.replacerElement:set(0)
         store.showConfirm:set(false)
-        print("No BaseParts selected. Selection cleared.")
     end
     storeManager.setSelectedElements(selectedElements)
    end)
 
    local peek = storeManager.getUtils().peek
    store.replacerElementObs:onChange(function()
-        print("Should apply the replacement steps if the replacer is different than 0")
         if peek(store.replacerElement) > 0 then
             controller.replace()
         end
@@ -193,8 +179,6 @@ local replaceElementsBy = function(listElements, replacer, options)
                                 part.CFrame = primaryPart.CFrame * newOffset
                             end
                         end
-                
-                        print("✅ Scaling and positioning applied to PrimaryPart and all children proportionally!")
                     else
                         warn("⚠️ newClone does not have a valid PrimaryPart for scaling!")
                     end
@@ -230,8 +214,7 @@ function controller.replace()
         copy = peek(store.options.copy), 
         scale = peek(store.options.scale), 
         confirm = peek(store.options.confirm)
-    } 
-    print("Fill here with replace code!")
+    }
 
     local model = nil
     local addToWorkspace = false
@@ -244,12 +227,9 @@ function controller.replace()
     end
 
     if model ~= nil then
-        print(" model _ ", model)
-        --[[ modelLoaded:set(model) ]]
         local resultData = replaceElementsBy(elementsToBeReplaced, model, options)
 
         if options.confirm then
-            print("Show message")
             store.showConfirm:set(true)
             store.originalData:set(resultData.originalData)
             store.replacerData:set(resultData.replacerData)
@@ -264,8 +244,6 @@ end
 
 function controller.Confirm()
     local store = storeManager.getStore()
-    --[[ local peek = storeManager.getUtils().peek ]]
-    print("Controller confirm")
     store.showComplete:set(true)
     store.showConfirm:set(false)
     store.originalData:set({})
@@ -277,13 +255,10 @@ function controller.Confirm()
 end
 
 function controller.Cancel()
-    print("Controller cancels")
     local store = storeManager.getStore()
     local peek = storeManager.getUtils().peek
 
     for _, elementData in ipairs(peek(store.originalData)) do
-
-        print("elementData ", elementData)
         elementData.element.Parent = elementData.parent
         elementData.element.Transparency = elementData.transparency
         elementData.element.CFrame = elementData.cframe

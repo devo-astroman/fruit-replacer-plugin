@@ -1,9 +1,6 @@
 local assetFolder = script.Parent.Parent['fruit-selector-app'].assets
-print("assetFolder ", assetFolder)
 
-return function (modelName, addToWorkspace)
-    print('modelName ', modelName)
-    print('addToWorkspace ', addToWorkspace)
+return function (modelName, addToWorkspace)    
     if assetFolder then
         local model = assetFolder:FindFirstChild(modelName)
         

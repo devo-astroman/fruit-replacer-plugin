@@ -3,23 +3,16 @@ local OnyxUI = require(script.Parent.Parent.Parent.Parent.Parent.packages.OnyxUI
 
 local SwitchValue = require(script.Parent.SwitchValue)
 
-return function(Scope: Fusion.Scope<any>, Props)
-    local Themer = OnyxUI.Themer
-	local Theme = Themer.Theme:now()
+return function(Scope: Fusion.Scope<any>, Props)    
     local Util = OnyxUI.Util
     local InnerScope = Fusion.innerScope
     local Scope = InnerScope(Scope, Fusion, OnyxUI.Util, OnyxUI.Components)
-    local peek = Fusion.peek
-
-    -- Callback function from props
-    local onOptionChange = Props.onOptionChange or function() end
     
     local switchValue1 = SwitchValue(Scope,{
         Key = 1,
         Text = "Delete items to be replaced",
         Value = Props.Value1.value,
         OnOptionChange = function( )
-            print("should change 1")
             Props.OnOptionChange(Props.Value1.key)
         end
     })
@@ -29,7 +22,6 @@ return function(Scope: Fusion.Scope<any>, Props)
         Text = "Copy Orientation",
         Value = Props.Value2.value,
         OnOptionChange = function( )
-            print("should change 2")
             Props.OnOptionChange(Props.Value2.key)
         end
     })
@@ -39,7 +31,6 @@ return function(Scope: Fusion.Scope<any>, Props)
         Text = "Copy Scale",
         Value = Props.Value3.value,
         OnOptionChange = function( )
-            print("should change 3")
             Props.OnOptionChange(Props.Value3.key)
         end
     })
@@ -49,7 +40,6 @@ return function(Scope: Fusion.Scope<any>, Props)
         Text = "Need Confirm",
         Value = Props.Value4.value,
         OnOptionChange = function( )
-            print("should change 4")
             Props.OnOptionChange(Props.Value4.key)
         end
     })

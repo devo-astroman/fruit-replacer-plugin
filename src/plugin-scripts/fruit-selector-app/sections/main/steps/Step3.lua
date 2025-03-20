@@ -28,10 +28,8 @@ return function(Scope: Fusion.Scope<any>, Props)
         Message = "Do you confirm the replacement?",
         OnAnswer = function(response)
             if response then
-                print("Should complete the operation")
                 controller.Confirm()
             else
-                print("Should cancel the operation")
                 controller.Cancel()
             end
         end
