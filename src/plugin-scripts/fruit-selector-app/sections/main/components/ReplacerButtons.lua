@@ -3,8 +3,10 @@ local OnyxUI = require(script.Parent.Parent.Parent.Parent.Parent.packages.OnyxUI
 
 
 return function(Scope: Fusion.Scope<any>, Props)
-    local Util = OnyxUI.Util
+    local Themer = OnyxUI.Themer
+    local Theme = Themer.Theme:now()
     local InnerScope = Fusion.innerScope
+    local Util = OnyxUI.Util
     local Scope = InnerScope(Scope, Fusion, OnyxUI.Util, OnyxUI.Components)
     local store = Props.Store
     local peek = Fusion.peek
@@ -15,48 +17,46 @@ return function(Scope: Fusion.Scope<any>, Props)
     local onPearActivated = Props.onPearActivated or function() end
     local onBananaActivated = Props.onBananaActivated or function() end
 
-    local sizeX = 20
-    local sizeY = sizeX
-    local posX = 30
+    local sizeX = 35
+    local sizeY = 15
+    local posX = sizeX + 1
     -- ✅ Create buttons with proper spacing
-    local appleButton = Scope:IconButton {        
+    local appleButton = Scope:IconButton {    
+        StrokeThickness = 1,
+        StrokeEnabled = false,
         CornerRadius = UDim.new(0,0),
-        StrokeColor = Color3.fromRGB(0,255,0),
-        StrokeThickness = .5,
-        StrokeLineJoinMode = Enum.LineJoinMode.Round,
-        StrokeApplyStrokeMode = Enum.ApplyStrokeMode.Border,
         Padding = 0,
+        Disabled = disabled,
+        OnActivated = onAppleActivated,
         Image = "rbxassetid://4800956040", -- Replace with actual Apple icon asset ID
         Size = UDim2.new(0, sizeX, 0, sizeY),
         Position = UDim2.new(0, posX*0, 0, 0),
-        Disabled = disabled,
-        OnActivated = onAppleActivated
     }
 
-    local pearButton = Scope:IconButton {
+    local pearButton = Scope:IconButton { 
+        StrokeThickness = 1,
+        StrokeEnabled = false,
         CornerRadius = UDim.new(0,0),
-        StrokeColor = Color3.fromRGB(0,255,0),
-        StrokeThickness = .5,
-        StrokeLineJoinMode = Enum.LineJoinMode.Round,
-        StrokeApplyStrokeMode = Enum.ApplyStrokeMode.Border,
         Padding = 0,
-        Image = "rbxassetid://13789464687", -- Replace with actual Pear icon asset ID
+        Disabled = disabled,
+        OnActivated = onPearActivated,
+        Image = "rbxassetid://13789464687", -- Replace with actual Apple icon asset ID
         Size = UDim2.new(0, sizeX, 0, sizeY),
         Position = UDim2.new(0, posX*1, 0, 0),
-        Disabled = disabled,
-        OnActivated = onPearActivated
     }
 
-    local bananaButton = Scope:IconButton {
-        CornerRadius = UDim.new(0,2),
+    local bananaButton = Scope:IconButton {  
+        StrokeThickness = 1,
+        StrokeEnabled = false,
+        CornerRadius = UDim.new(0,0),
         Padding = 0,
-        Image = "rbxassetid://12825469459", -- Replace with actual Banana icon asset ID
+        Disabled = disabled,
+        OnActivated = onBananaActivated,
+        Image = "rbxassetid://12825469459", -- Replace with actual Apple icon asset ID
         Size = UDim2.new(0, sizeX, 0, sizeY),
         Position = UDim2.new(0, posX*2, 0, 0),
-        Disabled = disabled,
-        OnActivated = onBananaActivated
     }
-
+    
     -- ✅ Parent frame containing the buttons
     local parentFrame = Scope:Frame {
         BackgroundTransparency = 1,
@@ -64,7 +64,7 @@ return function(Scope: Fusion.Scope<any>, Props)
         Position = UDim2.new(0, 0, 0, 0),
         BackgroundColor3 = Util.Colors.Blue["700"],
         AutomaticSize = Enum.AutomaticSize.XY,
-        [Fusion.Children] = { appleButton, pearButton, bananaButton }
+        [Fusion.Children] = { appleButton, pearButton, bananaButton,  }
     }
 
     return parentFrame

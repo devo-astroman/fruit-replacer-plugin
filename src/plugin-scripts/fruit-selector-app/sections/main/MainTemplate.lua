@@ -4,7 +4,10 @@ local OnyxUI = require(script.Parent.Parent.Parent.Parent.packages.OnyxUI)
 return function(Scope: Fusion.Scope<any>, Props)
 	local Util = OnyxUI.Util
 	local InnerScope = Fusion.innerScope
+    local Themer = OnyxUI.Themer
+    local Theme = Themer.Theme:now()
 	local Scope = InnerScope(Scope, Fusion, OnyxUI.Util, OnyxUI.Components)
+
     local leftComponent = Props.LeftComponent
     local middleComponent = Props.MiddleComponent
     local rightComponent = Props.RightComponent
@@ -34,10 +37,12 @@ return function(Scope: Fusion.Scope<any>, Props)
 	}
 
     local parentFrame = Scope:Frame {
-		BackgroundTransparency = 1,        
+		BackgroundTransparency = 1,
         Size = UDim2.new(0, 600, 1, 0),
         Position = UDim2.new(0, 0, 0, 0),
-        BackgroundColor3 = Util.Colors.White,
+        BackgroundColor3 = Scope:Computed(function(use)
+			return use(Theme.Colors.Primary.Contrast)
+		end),
         [Fusion.Children] = {
             leftSlot,
             middleSlot,

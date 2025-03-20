@@ -3,35 +3,23 @@ local OnyxUI = require(script.Parent.Parent.Parent.Parent.Parent.packages.OnyxUI
 
 
 return function(Scope: Fusion.Scope<any>, Props)
+    local Themer = OnyxUI.Themer
+	local Theme = Themer.Theme:now()
     local Util = OnyxUI.Util
     local InnerScope = Fusion.innerScope
     local Scope = InnerScope(Scope, Fusion, OnyxUI.Util, OnyxUI.Components)
     local store = Props.Store
 
-    local textElements = Props.TextElements
-    local items = {}
-    for _, element in ipairs(textElements) do
-        local textComponent = Scope:Text {
-            PaddingTop = UDim.new(0,5),
-            Text = element, -- ✅ Set the element name
-            Size = UDim2.new(1, 0, 0, 20),
-            BackgroundColor3 = Util.Colors.Stone["50"],
-            BackgroundTransparency = 0,
-            TextSize = 9,        
-            TextColor3 = Util.Colors.Stone["950"],
-        }
-        table.insert(items, textComponent)
-    end
-    
     local height = Props.Height
     local width = Props.Width
 
     local parentFrame = Scope:Frame {
 		BackgroundTransparency = 0,
         Size = UDim2.new(0,width,0, height),
-        --[[ Position = UDim2.new(0,0,0,0), ]]
         Position = Props.Position,
-        BackgroundColor3 = Util.Colors.Blue["700"]
+        BackgroundColor3 =  Scope:Computed(function(use)
+			return use(Theme.Colors.Neutral.Main)
+		end),
 	}
 
     -- ✅ Parent frame with automatic height adjustment
@@ -46,8 +34,8 @@ return function(Scope: Fusion.Scope<any>, Props)
             for i, element in ipairs(use(store.selectedElements)) do
 
                 if element.Size and element.Size.Y then
-                    
-                    local size = UDim2.new(1, 0, 0, 20) -- ✅ Position based on accumulated height                    
+                    local sY =10
+                    local size = UDim2.new(1, 0, 0, 5) -- ✅ Position based on accumulated height                    
                     local position = UDim2.new(0, 0, 0, (i-1)*20) -- ✅ Position based on accumulated height
 
                     local textComponent = Scope:Text {
@@ -55,10 +43,14 @@ return function(Scope: Fusion.Scope<any>, Props)
                         Text = element.Name, -- ✅ Set the element name
                         Size = size,
                         Position = position,
-                        BackgroundColor3 = Util.Colors.Stone["50"],
+                        BackgroundColor3 = Scope:Computed(function(use)
+                            return use(Theme.Colors.Neutral.Dark)
+                        end),
                         BackgroundTransparency = 0,
-                        TextSize = 9,        
-                        TextColor3 = Util.Colors.Stone["950"],
+                        TextSize = 9,
+                        TextColor3 = Scope:Computed(function(use)
+                            return use(Theme.Colors.NeutralContent.Main)
+                        end),
                     }
                     table.insert(components, textComponent)
 
@@ -78,7 +70,12 @@ return function(Scope: Fusion.Scope<any>, Props)
         Size = UDim2.new(1,0,0,height),
         CanvasSize = UDim2.new(1,0,0,totalHeight),
         Position = UDim2.new(0,0,0,0),
-        BackgroundColor3 = Util.Colors.Emerald["800"]
+        BackgroundColor3 = Scope:Computed(function(use)
+			return use(Theme.Colors.Neutral.Main)
+		end),
+        ScrollBarImageColor3 = Scope:Computed(function(use)
+			return use(Theme.Colors.Neutral.Light)
+		end),
 	}
 
     scrollerParent.Parent = parentFrame

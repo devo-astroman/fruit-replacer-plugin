@@ -1,11 +1,52 @@
 local PluginTheme = {
     Colors = {
         Primary =  {
-            Main =  Color3.fromRGB(0,0,255),
-            Dark = Color3.fromRGB(0,255,0),
-            Light = Color3.fromRGB(0,255,0),
-            Contrast = Color3.fromRGB(0,255,0),
-        }
+            Main =  Color3.fromHex("#fffffe"),
+			Dark =   Color3.fromHex("#ff0000"),
+			Light =   Color3.fromHex("#00ff00"),
+			Contrast =   Color3.fromHex("#0000ff"),
+        },
+        Secondary =  {
+            Main =  Color3.fromHex("#fffffe"),
+			Dark =   Color3.fromHex("#ff0000"),
+			Light =   Color3.fromHex("#00ff00"),
+			Contrast =   Color3.fromHex("#0000ff"),
+        },
+        Neutral =  {
+            Main =  Color3.fromHex("#ff8906"), --[[ Color button when is available ]]
+			Dark =  Color3.fromHex("#E8E8E7"),
+			Light =  Color3.fromHex("#a7a9be"),
+			
+        },
+        NeutralContent =  {
+            Main =  Color3.fromHex("#0f0e17"),
+			Dark =   Color3.fromHex("#ff0000"),
+			Light =   Color3.fromHex("#00ff00"),
+			Contrast =   Color3.fromHex("#0000ff"),
+        },
+        Accent =  {
+            Main =  Color3.fromHex("#fffffe"),
+			Dark =   Color3.fromHex("#ff0000"),
+			Light =   Color3.fromHex("#00ff00"),
+			Contrast =   Color3.fromHex("#0000ff"),
+        },
+
+		Base =  {
+            Main =  Color3.fromHex("#fffffe"),
+			Dark =   Color3.fromHex("#ff0000"),
+			Light =   Color3.fromHex("#00ff00"),
+			Contrast =   Color3.fromHex("#0000ff"),
+        },
+
+		BaseContent =  {
+            Main =  Color3.fromHex("#00ff00"), --[[ button disabled ]]
+			Dark =   Color3.fromHex("#ff0000"),
+			Light =   Color3.fromHex("#00ff00"),
+			Contrast =   Color3.fromHex("#0000ff"),
+        },
+		Background  =  {
+            Main =  Color3.fromHex("#0f0e17"),
+        },
     }
 }
 
