@@ -2,10 +2,10 @@ local Fusion = require(script.Parent.Parent.Parent.Parent.Parent.packages.Fusion
 local OnyxUI = require(script.Parent.Parent.Parent.Parent.Parent.packages.OnyxUI)
 
 return function(Scope: Fusion.Scope<any>, Props)
-    local Util = OnyxUI.Util
+    local Themer = OnyxUI.Themer
+	local Theme = Themer.Theme:now()
     local InnerScope = Fusion.innerScope
     local Scope = InnerScope(Scope, Fusion, OnyxUI.Util, OnyxUI.Components)
-    local peek = Fusion.peek
 
     local key = Props.Key
     local text = Props.Text
@@ -15,13 +15,13 @@ return function(Scope: Fusion.Scope<any>, Props)
     return Scope:Frame {
         BackgroundTransparency = 1,
         Size = UDim2.new(1, 0, 0, 30), -- Each item height
+        Position = UDim2.new(0, 0, 0, 20), 
         [Fusion.Children] = {
             Scope:SwitchInput {
-                Size = UDim2.new(0, 30, 0, 10), -- Checkbox size
+                Size = UDim2.new(0, 30, 0, 15), -- Checkbox size
                 CornerRadius = UDim.new(0,0),
-                StrokeColor = Color3.fromRGB(0,255,0),
                 StrokeThickness = .5,
-                Position = UDim2.new(0, 0, 0, key * 40),
+                Position = UDim2.new(0, 0, 0, key * 25),
                 Switched = switchValue,
                 OnActivated = function()
                     onOptionChange(key)
@@ -30,10 +30,15 @@ return function(Scope: Fusion.Scope<any>, Props)
             Scope:Text {
                 Text = text,
                 Size = UDim2.new(1, 0, 1, 0), -- Adjust width for text
-                Position = UDim2.new(0, 50, 0, key * 40),
-                TextSize = 12,
+                Position = UDim2.new(0, 50, 0, key * 25),
+                TextSize = Scope:Computed(function(use)
+                    return use(Theme.TextSize["0.875"])
+                end),
                 BackgroundTransparency = 1,
-                TextColor3 = Util.Colors.Green["950"]
+                TextColor3 = Scope:Computed(function(use)
+                    return use(Theme.Colors.Secondary.Main)
+                end),
+                
             }
         }
     }

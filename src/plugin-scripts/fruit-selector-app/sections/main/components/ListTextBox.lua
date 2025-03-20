@@ -71,7 +71,7 @@ return function(Scope: Fusion.Scope<any>, Props)
         CanvasSize = UDim2.new(1,0,0,totalHeight),
         Position = UDim2.new(0,0,0,0),
         BackgroundColor3 = Scope:Computed(function(use)
-			return use(Theme.Colors.Neutral.Main)
+			return use(Theme.Colors.Neutral.Dark)
 		end),
         ScrollBarImageColor3 = Scope:Computed(function(use)
 			return use(Theme.Colors.Neutral.Light)

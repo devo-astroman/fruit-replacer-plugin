@@ -1,7 +1,7 @@
 local PluginTheme = {
     Colors = {
         Primary =  {
-            Main =  Color3.fromHex("#fffffe"),
+            Main =  Color3.fromHex("#ff8906"), --[[ Color checkbox ]]
 			Dark =   Color3.fromHex("#ff0000"),
 			Light =   Color3.fromHex("#00ff00"),
 			Contrast =   Color3.fromHex("#0000ff"),
@@ -20,7 +20,7 @@ local PluginTheme = {
         },
         NeutralContent =  {
             Main =  Color3.fromHex("#0f0e17"),
-			Dark =   Color3.fromHex("#ff0000"),
+			Dark =   Color3.fromHex("#824603"), --[[ Color checkbox disabled ]]
 			Light =   Color3.fromHex("#00ff00"),
 			Contrast =   Color3.fromHex("#0000ff"),
         },
@@ -39,11 +39,19 @@ local PluginTheme = {
         },
 
 		BaseContent =  {
-            Main =  Color3.fromHex("#00ff00"), --[[ button disabled ]]
+            Main =  Color3.fromHex("#824603"), --[[ button disabled ]]
 			Dark =   Color3.fromHex("#ff0000"),
 			Light =   Color3.fromHex("#00ff00"),
 			Contrast =   Color3.fromHex("#0000ff"),
         },
+
+		Success =  {
+            Main =  Color3.fromHex("#4BB543"), --[[ button disabled ]]
+			Dark =   Color3.fromHex("#ff0000"),
+			Light =   Color3.fromHex("#00ff00"),
+			Contrast =   Color3.fromHex("#0000ff"),
+        },
+		
 		Background  =  {
             Main =  Color3.fromHex("#0f0e17"),
         },

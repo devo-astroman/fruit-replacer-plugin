@@ -13,31 +13,37 @@ return function(Scope: Fusion.Scope<any>, Props)
 	
 	local questionText = Scope:Text {
 		Text = question,
-		TextColor3 = Util.Colors.Green["700"],
-		Size = UDim2.new(0, 100, 0, 30),
+		TextColor3 = Scope:Computed(function(use)
+			return use(Theme.Colors.Secondary.Main)
+		end),
+		Size = UDim2.new(0, 300, 0, 30),
         Position = UDim2.new(0, 0, 0, 0),
-		TextSize = 10,
+		TextSize = Scope:Computed(function(use)
+			return use(Theme.TextSize["0.875"])
+		end),
 		PaddingLeft = UDim.new(0,0),
 		TextXAlignment = Enum.TextXAlignment.Left
 	}
 
 	local cancelButton = Scope:Button {
-        CornerRadius = UDim.new(0,2),
+        StrokeEnabled = false,
+        CornerRadius = UDim.new(0,0),
         Padding = 0,
 		Content = {"Cancel"},
-        Size = UDim2.new(0, 100, 0, 30),
-        Position = UDim2.new(0, 0, 0, 35),
+        Size = UDim2.new(0, 50, 0, 20),
+        Position = UDim2.new(0, 10, 0, 35),
         OnActivated = function()
 			onAnswer(false)
 		end 
     }
 
 	local confirmButton = Scope:Button {
-        CornerRadius = UDim.new(0,2),
+        StrokeEnabled = false,
+        CornerRadius = UDim.new(0,0),
         Padding = 0,
 		Content = {"Confirm"},
-        Size = UDim2.new(0, 100, 0, 30),
-        Position = UDim2.new(0, 100, 0, 35),
+        Size = UDim2.new(0, 50, 0, 20),
+        Position = UDim2.new(0, 80, 0, 35),
         OnActivated = function()
 			onAnswer(true)
 		end 

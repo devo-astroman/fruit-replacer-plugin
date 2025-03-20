@@ -11,7 +11,7 @@ return function(Scope: Fusion.Scope<any>, Props)
 	return Scope:Text {
 		Text = Props.Instruction,
 		TextColor3 = Scope:Computed(function(use)
-			return use(Theme.Colors.Primary.Main)
+			return use(Theme.Colors.Secondary.Main)
 		end),
 		Position = Props.Position,
 		Size = Props.Size,

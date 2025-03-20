@@ -4,6 +4,8 @@ local OnyxUI = require(script.Parent.Parent.Parent.Parent.Parent.packages.OnyxUI
 local SwitchValue = require(script.Parent.SwitchValue)
 
 return function(Scope: Fusion.Scope<any>, Props)
+    local Themer = OnyxUI.Themer
+	local Theme = Themer.Theme:now()
     local Util = OnyxUI.Util
     local InnerScope = Fusion.innerScope
     local Scope = InnerScope(Scope, Fusion, OnyxUI.Util, OnyxUI.Components)
@@ -54,9 +56,9 @@ return function(Scope: Fusion.Scope<any>, Props)
 
     local parentFrame = Scope:Frame {
         BackgroundTransparency = 1,
-        Size = UDim2.new(0, 200, 0, 0), 
+        Size = UDim2.new(0, 150, 0, 200), 
         Position = UDim2.new(0, 0, 0, 0),
-        BackgroundColor3 = Util.Colors.Blue["700"],
+        BackgroundColor3 = Util.Colors.Gray["700"],
         AutomaticSize = Enum.AutomaticSize.Y,
         [Fusion.Children] = {
             switchValue1,

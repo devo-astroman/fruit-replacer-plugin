@@ -10,10 +10,14 @@ return function(Scope: Fusion.Scope<any>, Props)
 
 	return Scope:Text {
 		Text = Props.Message,
-		TextColor3 = Util.Colors.Green["700"],
+		TextColor3 = Scope:Computed(function(use)
+			return use(Theme.Colors.Success.Main)
+		end),
 		Size = UDim2.new(0, 100, 0, 30),
         Position = UDim2.new(0, 0, 0, 0),
-		TextSize = 10,
+		TextSize = Scope:Computed(function(use)
+			return use(Theme.TextSize["1.25"])
+		end),
 		PaddingLeft = UDim.new(0,0),
 		TextXAlignment = Enum.TextXAlignment.Left
 	}
