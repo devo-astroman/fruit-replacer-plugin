@@ -1,5 +1,7 @@
 local Fusion = require(script.Parent.Parent.packages.Fusion)
+local OnyxUI = require(script.Parent.Parent.packages.OnyxUI)
 local BaseWidget = require(script.Parent.components.BaseWidget)
+local PluginTheme = require(script.Parent.PluginTheme)
 
 local Router = require(script.Parent.router)
 local Main = require(script.Parent.sections.main.Main)
@@ -41,11 +43,16 @@ function app.init(plugin, pluginButton)
     controller.init(plugin,storeManager)
     controller.run()
 
-    local mainSection = Main(scope, {
-        StoreRef = store,
-        RouterRef = Router,
-        ControllerRef = controller
-    })
+    local Themer = OnyxUI.Themer
+	local myTheme = Themer.NewTheme(scope,PluginTheme)
+
+    local mainSection = Themer.Theme:is(myTheme):during(function()
+        return Main(scope, {
+            StoreRef = store,
+            RouterRef = Router,
+            ControllerRef = controller
+        })
+	end)
 
     local sections = {
         main = mainSection

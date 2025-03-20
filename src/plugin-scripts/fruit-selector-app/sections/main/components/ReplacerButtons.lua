@@ -19,8 +19,12 @@ return function(Scope: Fusion.Scope<any>, Props)
     local sizeY = sizeX
     local posX = 30
     -- ✅ Create buttons with proper spacing
-    local appleButton = Scope:IconButton {
-        CornerRadius = UDim.new(0,2),
+    local appleButton = Scope:IconButton {        
+        CornerRadius = UDim.new(0,0),
+        StrokeColor = Color3.fromRGB(0,255,0),
+        StrokeThickness = .5,
+        StrokeLineJoinMode = Enum.LineJoinMode.Round,
+        StrokeApplyStrokeMode = Enum.ApplyStrokeMode.Border,
         Padding = 0,
         Image = "rbxassetid://4800956040", -- Replace with actual Apple icon asset ID
         Size = UDim2.new(0, sizeX, 0, sizeY),
@@ -30,7 +34,11 @@ return function(Scope: Fusion.Scope<any>, Props)
     }
 
     local pearButton = Scope:IconButton {
-        CornerRadius = UDim.new(0,2),
+        CornerRadius = UDim.new(0,0),
+        StrokeColor = Color3.fromRGB(0,255,0),
+        StrokeThickness = .5,
+        StrokeLineJoinMode = Enum.LineJoinMode.Round,
+        StrokeApplyStrokeMode = Enum.ApplyStrokeMode.Border,
         Padding = 0,
         Image = "rbxassetid://13789464687", -- Replace with actual Pear icon asset ID
         Size = UDim2.new(0, sizeX, 0, sizeY),

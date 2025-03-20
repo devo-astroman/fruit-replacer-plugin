@@ -17,7 +17,10 @@ return function(Scope: Fusion.Scope<any>, Props)
         Size = UDim2.new(1, 0, 0, 30), -- Each item height
         [Fusion.Children] = {
             Scope:SwitchInput {
-                Size = UDim2.new(0, 40, 0, 30), -- Checkbox size
+                Size = UDim2.new(0, 30, 0, 10), -- Checkbox size
+                CornerRadius = UDim.new(0,0),
+                StrokeColor = Color3.fromRGB(0,255,0),
+                StrokeThickness = .5,
                 Position = UDim2.new(0, 0, 0, key * 40),
                 Switched = switchValue,
                 OnActivated = function()
