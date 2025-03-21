@@ -4,7 +4,7 @@ local BaseWidget = require(script.Parent.components.BaseWidget)
 local PluginTheme = require(script.Parent.PluginTheme)
 
 local Router = require(script.Parent.router)
-local Main = require(script.Parent.sections.main.Main)
+local Main = require(script.Parent.sections.view.Main)
 
 local constants =  require(script.Parent.constants)
 

@@ -1,14 +1,21 @@
 local Fusion = require(script.Parent.Parent.Parent.Parent.Parent.packages.Fusion)
 local OnyxUI = require(script.Parent.Parent.Parent.Parent.Parent.packages.OnyxUI)
 
+type PropsType = {
+    Height:number,
+    Width:number,
+    Position:UDim2,
+    SelectedElements:Fusion.UsedAs<{}>
+}
 
-return function(Scope: Fusion.Scope<any>, Props)
+
+return function(Scope: Fusion.Scope<any>, Props:PropsType)
     local Themer = OnyxUI.Themer
 	local Theme = Themer.Theme:now()
     local Util = OnyxUI.Util
     local InnerScope = Fusion.innerScope
     local Scope = InnerScope(Scope, Fusion, OnyxUI.Util, OnyxUI.Components)
-    local store = Props.Store
+    local selectedElements = Props.SelectedElements
 
     local height = Props.Height
     local width = Props.Width
@@ -21,6 +28,7 @@ return function(Scope: Fusion.Scope<any>, Props)
 			return use(Theme.Colors.Neutral.Main)
 		end),
 	}
+    
 
     -- ✅ Parent frame with automatic height adjustment
     local listFrame = Scope:Frame {
@@ -30,8 +38,8 @@ return function(Scope: Fusion.Scope<any>, Props)
         BackgroundColor3 = Util.Colors.Blue["700"],
         AutomaticSize = Enum.AutomaticSize.Y,
         [Fusion.Children] = Scope:Computed(function(use)
-            local components = {}            
-            for i, element in ipairs(use(store.selectedElements)) do
+            local components = {}
+             for i, element in ipairs(use(selectedElements)) do                
 
                 if element.Size and element.Size.Y then
                     local sY =10

@@ -9,8 +9,6 @@ local ListTextBox = require(script.Parent.Parent.components.ListTextBox)
 return function(Scope: Fusion.Scope<any>, Props)	
 	local InnerScope = Fusion.innerScope
 	local Scope = InnerScope(Scope, Fusion, OnyxUI.Util, OnyxUI.Components)
-    local Util = OnyxUI.Util
-    local peek = Fusion.peek
     local store = Props.StoreRef
 
     local title =   StepTitle(Scope, {
@@ -21,20 +19,10 @@ return function(Scope: Fusion.Scope<any>, Props)
     })
 
     local listTextBox = ListTextBox(Scope, {
-        TextElements =  Scope:Computed(function(Use)
-            local textElements = {}
-            for index = 1, Use(store.nSelectedElements) do
-                table.insert(textElements, "Text " .. index)
-            end            
-            return textElements
-        end),  
-        Width = 100,
+        Width = "100",
         Height = 100,
         Position =  UDim2.new(0,0,0,0),
-        HeaderText = Scope:Computed(function()
-            return "my text"
-        end),
-        Store = store
+        SelectedElements = store.selectedElements,
      })
 
 

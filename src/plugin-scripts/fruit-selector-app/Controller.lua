@@ -1,7 +1,6 @@
 local loadEmbeddedModel = require(script.Parent.Parent.utils.EmbeddedAssetLoader)
 
 local storeManager = nil
-local plugin = nil
 local Selection = game:GetService("Selection")
 
 -- Table to store selected elements
@@ -11,7 +10,6 @@ local ChangeHistoryService = game:GetService("ChangeHistoryService")
 local undoStack = {}
 local controller = {}
 function controller.init(pluginRef, storeManagerRef)
-   plugin = pluginRef
    storeManager = storeManagerRef
 
   ChangeHistoryService.OnUndo:Connect(function(value)

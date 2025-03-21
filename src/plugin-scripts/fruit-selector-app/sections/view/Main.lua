@@ -7,8 +7,11 @@ local Step3 = require(script.Parent.steps.Step3)
 
 local MainTemplate = require(script.Parent.MainTemplate)
 
-return function(Scope: Fusion.Scope<any>, Props)	
+
+
+return function(Scope: Fusion.Scope, Props)	
 	local InnerScope = Fusion.innerScope
+
 	local Scope = InnerScope(Scope, Fusion, OnyxUI.Util, OnyxUI.Components)    
 
     local step1 =  Step1(Scope, {
@@ -18,7 +21,7 @@ return function(Scope: Fusion.Scope<any>, Props)
     local step2 =  Step2(Scope, {
         StoreRef = Props.StoreRef
     })
-    
+
     local step3 =  Step3(Scope, {
         StoreRef = Props.StoreRef,
         Controller = Props.ControllerRef
