@@ -9,6 +9,9 @@ local ChangeHistoryService = game:GetService("ChangeHistoryService")
 
 local undoStack = {}
 local controller = {}
+
+local conn1 = nil
+local conn2 = nil
 function controller.init(pluginRef, storeManagerRef)
    storeManager = storeManagerRef
 
@@ -21,7 +24,7 @@ function controller.init(pluginRef, storeManagerRef)
 end
 function controller.run()
    local store = storeManager.getStore()   
-   Selection.SelectionChanged:Connect(function()
+   conn1 = Selection.SelectionChanged:Connect(function()
     local selected = Selection:Get() -- Get currently selected objects
     selectedElements = {} -- Reset table
 
@@ -41,12 +44,11 @@ function controller.run()
    end)
 
    local peek = storeManager.getUtils().peek
-   store.replacerElementObs:onChange(function()
+   conn2 = store.replacerElementObs:onChange(function()
         if peek(store.replacerElement) > 0 then
             controller.replace()
         end
     end)
-
 end
 
 
@@ -275,6 +277,11 @@ function controller.Cancel()
     store.showConfirm:set(false)
     store.originalData:set({})
     store.replacerData:set({})
+end
+
+function controller.Destroy()
+    conn1:Disconnect()
+    conn2()
 end
 
 return controller

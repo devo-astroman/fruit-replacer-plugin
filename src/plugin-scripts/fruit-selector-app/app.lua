@@ -18,6 +18,7 @@ local controller = require(script.Parent.Controller)
 local widgetEnabled = false
 local widget = nil
 
+
 local app = {}
 function app.init(plugin, pluginButton)
     pluginButton.ClickableWhenViewportHidden = true
@@ -32,12 +33,7 @@ function app.init(plugin, pluginButton)
     constants.widget.minHeight)
 
     widget.Enabled = widgetEnabled;
-
-    widget:GetPropertyChangedSignal("Enabled"):Connect(function()
-        if not widget.Enabled then
-            widgetEnabled = false
-        end
-    end)
+    
     storeManager.init(Fusion,scope)    
     local store = storeManager.getStore()
     controller.init(plugin,storeManager)
@@ -60,10 +56,27 @@ function app.init(plugin, pluginButton)
 
     Router.create(widget, "main", sections)
     Router.init()
+
+    widget:GetPropertyChangedSignal("Enabled"):Connect(function()
+        if not widget.Enabled then
+            print("🔌 Plugin window closed. Cleaning up...")    
+            -- Disconnect any living connections
+           app.close()
+        else
+            print("🔌 Plugin window opened")
+            controller.run()
+        end
+    end)
 end
 function app.run()
     widgetEnabled = not widgetEnabled
     widget.Enabled = widgetEnabled
+end
+
+function app.close()
+    --clickConnection:Disconnect()
+    controller.Destroy()
+
 end
 
 return app

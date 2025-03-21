@@ -28,7 +28,7 @@ return function(Scope: Fusion.Scope<any>, Props)
         Padding = 0,
         Disabled = disabled,
         OnActivated = onAppleActivated,
-        Image = "rbxassetid://4800956040", -- Replace with actual Apple icon asset ID
+        Image = "rbxassetid://101980888457907", -- Replace with actual Apple icon asset ID
         Size = UDim2.new(0, sizeX, 0, sizeY),
         Position = UDim2.new(0, posX*0, 0, 0),
     }
@@ -40,7 +40,7 @@ return function(Scope: Fusion.Scope<any>, Props)
         Padding = 0,
         Disabled = disabled,
         OnActivated = onPearActivated,
-        Image = "rbxassetid://13789464687", -- Replace with actual Apple icon asset ID
+        Image = "rbxassetid://80401381264733", -- Replace with actual Apple icon asset ID
         Size = UDim2.new(0, sizeX, 0, sizeY),
         Position = UDim2.new(0, posX*1, 0, 0),
     }
@@ -52,7 +52,7 @@ return function(Scope: Fusion.Scope<any>, Props)
         Padding = 0,
         Disabled = disabled,
         OnActivated = onBananaActivated,
-        Image = "rbxassetid://12825469459", -- Replace with actual Apple icon asset ID
+        Image = "rbxassetid://138840669658788", -- Replace with actual Apple icon asset ID
         Size = UDim2.new(0, sizeX, 0, sizeY),
         Position = UDim2.new(0, posX*2, 0, 0),
     }

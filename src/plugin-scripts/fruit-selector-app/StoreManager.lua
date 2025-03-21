@@ -8,8 +8,7 @@ local store = {
     replacerElement = nil,
     replacerElementObs = nil,
     showConfirm = nil,
-    showComplete = nil,
-    showConfirmObs = nil,
+    showComplete = nil,    
     originalData = nil,
     replacerData = nil,
 }
@@ -31,7 +30,6 @@ function storeManager.init(Fusion, scope)
     store.replacerElementObs = scope:Observer(store.replacerElement)
     store.showConfirm = Fusion.Value(scope, false)
     store.showComplete = Fusion.Value(scope, false)
-    store.showConfirmObs = scope:Observer(store.showConfirm)
     store.originalData = Fusion.Value(scope, {})
     store.replacerData = Fusion.Value(scope, {})
 
