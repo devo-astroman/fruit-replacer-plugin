@@ -9,7 +9,6 @@ return function (modelName, addToWorkspace)
             if addToWorkspace then
                 clonedModel.Parent = game.Workspace -- Insert the cloned model into the workspace                
             end
-            print(modelName .. " model loaded successfully!")
             return clonedModel
         else
             warn("Model not found inside PluginAssets folder. " .. modelName)

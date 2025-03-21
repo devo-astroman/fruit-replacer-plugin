@@ -59,11 +59,9 @@ function app.init(plugin, pluginButton)
 
     widget:GetPropertyChangedSignal("Enabled"):Connect(function()
         if not widget.Enabled then
-            print("🔌 Plugin window closed. Cleaning up...")    
             -- Disconnect any living connections
            app.close()
         else
-            print("🔌 Plugin window opened")
             controller.run()
         end
     end)
